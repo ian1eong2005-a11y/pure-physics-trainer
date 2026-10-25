@@ -668,3 +668,23 @@ def drop_sketch(h_label, body_label=None):
     ax.set_xlim(-0.9, 2.8)
     ax.set_ylim(-0.3, 3.0)
     return _png(fig)
+
+
+def cro_trace(period_div, amp_div, timebase_label=None, second=None):
+    """Oscilloscope screen, 10 x 8 divisions, with a sine trace of the given period and amplitude (in divisions).
+    second: optional (period_div, amp_div) drawn dashed for comparison."""
+    fig, ax = _fig(4.4, 3.6)
+    ax.add_patch(Rectangle((0, -4), 10, 8, fc="#f4f8f4", ec="black", lw=1.6))
+    for i in range(1, 10):
+        ax.plot([i, i], [-4, 4], color="#9aa89a", lw=0.6)
+    for j in range(-3, 4):
+        ax.plot([0, 10], [j, j], color="#9aa89a", lw=0.6 if j else 0.9)
+    xs = np.linspace(0, 10, 600)
+    ax.plot(xs, amp_div * np.sin(2 * np.pi * xs / period_div), color="black", lw=1.8)
+    if second:
+        ax.plot(xs, second[1] * np.sin(2 * np.pi * xs / second[0]), color="black", lw=1.4, ls="--")
+    if timebase_label:
+        ax.text(5, -4.4, timebase_label, ha="center", va="top", fontsize=9.5)
+    ax.set_xlim(-0.3, 10.3)
+    ax.set_ylim(-5.2, 4.3)
+    return _png(fig)
