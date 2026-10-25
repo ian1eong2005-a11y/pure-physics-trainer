@@ -31,7 +31,7 @@ written("w3_define_g", 3, 1, "3d",
         sample_pass=["The gravitational force per unit mass", "the force acting on each kilogram of mass, in N/kg"],
         sample_fail=["The pull of gravity on an object", "How fast things fall"])
 
-written("w3_define_density", 3, 1, "3g",
+written("w5_define_density", 5, 1, "5d",
         stem="Fig. 1 shows a block of metal. Define density and state its SI unit.",
         points=[P("mass per unit volume, kg/m³", ["mass per unit volume", "mass divided by volume", "mass / volume", "mass ÷ volume", "mass over volume", "mass per cubic", "kg/m", "kg per cubic", "kilogram per cubic", "g/cm"])],
         pitfalls=[PF(["volume divided by mass", "volume per unit mass", "volume / mass"], "Density is mass DIVIDED BY volume, not the other way round.")],
@@ -44,7 +44,7 @@ written("w3_define_density", 3, 1, "3g",
         sample_pass=["Mass per unit volume, measured in kg/m³", "density = mass ÷ volume (kg per cubic metre)"],
         sample_fail=["Volume divided by mass", "How heavy an object is"])
 
-written("w3_define_pressure", 3, 1, "3h",
+written("w5_define_pressure", 5, 1, "5a",
         stem="Fig. 1 shows a force acting on a surface. Define pressure.",
         points=[P("force per unit area (force ÷ area), acting at right angles to the surface", ["force per unit area", "force divided by area", "force / area", "force ÷ area", "force over area", "force acting per unit", "n/m", "newtons per square"])],
         pitfalls=[PF(["force times area", "force multiplied by area", "force x area"], "Pressure is force DIVIDED BY area: the same force on a smaller area gives a larger pressure.")],
@@ -97,7 +97,7 @@ written("w3_weight_on_moon", 3, 2, "3e",
         sample_pass=["Weight is mass times g and g is smaller on the Moon, so the weight is less", "the Moon's gravitational field strength is weaker so the same mass weighs less"],
         sample_fail=["There is no gravity on the Moon", "Her mass decreases on the Moon"])
 
-written("w3_sharp_knife", 3, 2, "3i",
+written("w5_sharp_knife", 5, 2, "5b",
         stem="Explain why a sharp knife cuts more easily than a blunt one when pushed with the same force.",
         points=[P("pressure = force ÷ area, and the sharp edge has a much smaller area", ["force ÷ area", "force divided by area", "force / area", "pressure = force", "smaller area", "tiny area", "small area", "less area"]),
                 P("so the same force produces a much greater pressure, which cuts into the material", ["greater pressure", "higher pressure", "larger pressure", "more pressure", "pressure increases", "cuts in"])],
@@ -110,7 +110,7 @@ written("w3_sharp_knife", 3, 2, "3i",
         sample_pass=["The sharp edge has a smaller area so the same force gives a higher pressure", "pressure = force / area, so a small area means a large pressure that cuts"],
         sample_fail=["Sharp knives are heavier", "A sharp knife has more force"])
 
-written("w3_measure_density_irregular", 3, 2, "3g",
+written("w5_measure_density_irregular", 5, 2, "5d",
         stem="Fig. 1 shows a measuring cylinder before and after a stone is lowered into it. Describe how to find the density of the stone.",
         points=[P("find the mass of the stone with a balance", ["balance", "mass", "weigh"]),
                 P("find its volume from the rise in water level: volume = reading after − reading before", ["rise in", "difference", "after minus before", "subtract", "increase in volume", "water level", "displaced"]),
@@ -125,7 +125,7 @@ written("w3_measure_density_irregular", 3, 2, "3g",
         sample_pass=["Weigh the stone, find its volume from the rise in the water level, and divide mass by volume", "mass from a balance; volume = reading after minus reading before; density = mass ÷ volume"],
         sample_fail=["Measure the stone with a ruler", "Weigh the water"])
 
-written("w3_ice_floats", 3, 2, "3g",
+written("w5_ice_floats", 5, 2, "5d",
         stem="Ice floats on water. State what this tells you about the density of ice compared with water, and explain in terms of mass and volume what happens when water freezes.",
         points=[P("ice is less dense than water", ["less dense", "lower density", "density is lower", "smaller density", "not as dense"]),
                 P("when water freezes its mass stays the same but its volume increases (it expands), so the density decreases", ["mass stays the same", "same mass", "volume increases", "expands", "takes up more space", "bigger volume", "larger volume"])],
@@ -139,7 +139,7 @@ written("w3_ice_floats", 3, 2, "3g",
         sample_fail=["Ice is denser than water", "Ice is lighter because it loses mass"])
 
 # ---------------------------------------------------------------- L3
-written("w3_snowshoes", 3, 3, "3i",
+written("w5_snowshoes", 5, 3, "5b",
         stem="Explain why a person wearing wide snowshoes does not sink into soft snow, while the same person in ordinary boots does.",
         points=[P("the person's weight (force) is the same in both cases", ["same weight", "same force", "weight is the same", "force is the same", "weight does not change"]),
                 P("snowshoes spread the weight over a much larger area", ["larger area", "bigger area", "greater area", "spread", "wider", "more area"]),
@@ -154,7 +154,7 @@ written("w3_snowshoes", 3, 3, "3i",
         sample_pass=["The weight is spread over a bigger area so the pressure on the snow is lower and the person does not sink", "same force but larger area gives a smaller pressure"],
         sample_fail=["Snowshoes are lighter than boots", "Snowshoes grip the snow"])
 
-written("w3_drawing_pin", 3, 3, "3i",
+written("w5_drawing_pin", 5, 3, "5b",
         stem="A drawing pin has a flat, wide head and a sharp point. Explain how this design lets a small push of the thumb drive the pin into a board.",
         points=[P("the force of the thumb on the head is transmitted to the point: the same force acts at both ends", ["same force", "force is transmitted", "transmitted to the point", "equal force", "passed on to the point", "both ends"]),
                 P("the head has a large area, so the pressure on the thumb is low and it does not hurt", ["large area", "wide head", "low pressure on the thumb", "does not hurt", "small pressure on the thumb", "comfortable", "spread over the thumb"]),
@@ -169,7 +169,7 @@ written("w3_drawing_pin", 3, 3, "3i",
                      "the head spreads the force over a large area so it does not hurt, and the point concentrates it into a tiny area to pierce the board"],
         sample_fail=["The head is heavy so it pushes the pin in", "The point is made of harder metal"])
 
-written("w3_measure_density_liquid", 3, 3, "3g",
+written("w5_measure_density_liquid", 5, 3, "5d",
         stem="Describe how you would determine the density of a liquid using a measuring cylinder and a balance.",
         points=[P("measure the mass of the empty measuring cylinder on the balance", ["empty cylinder", "empty measuring cylinder", "mass of the cylinder", "weigh the empty", "balance"]),
                 P("pour in the liquid, read its volume (bottom of the meniscus, at eye level) and measure the mass again; mass of liquid = difference", ["volume", "meniscus", "eye level", "mass again", "difference", "subtract", "mass of the liquid"]),
@@ -185,7 +185,7 @@ written("w3_measure_density_liquid", 3, 3, "3g",
                      "mass of liquid = full minus empty; volume from the cylinder; density = mass ÷ volume"],
         sample_fail=["Pour the liquid onto the balance", "Measure the liquid with a ruler"])
 
-written("w3_hot_air_balloon", 3, 3, "3g",
+written("w5_hot_air_balloon", 5, 3, "5d",
         stem="Explain, in terms of density, why a hot-air balloon rises when the air inside it is heated.",
         points=[P("heating the air makes it expand: the same mass occupies a larger volume", ["expands", "expand", "larger volume", "spreads out", "takes up more space", "particles move apart"]),
                 P("so the hot air inside is less dense than the cooler air outside", ["less dense", "lower density", "density decreases", "density falls", "lighter than the surrounding"]),
@@ -217,7 +217,7 @@ written("w3_spring_balance_moon", 3, 3, "3e",
         sample_fail=["Both balances read less on the Moon", "A spring balance measures mass"])
 
 # ---------------------------------------------------------------- L4
-written("w3_float_or_sink", 3, 4, "3g",
+written("w5_float_or_sink", 5, 4, "5d",
         stem="A solid block floats in water with part of it above the surface, while an identical-sized block of a different material sinks. Explain what this tells you about the two materials, and how you could check by calculation.",
         points=[P("the floating block is less dense than water; the sinking block is denser than water", ["less dense than water", "lower density than water", "denser than water", "more dense than water", "greater density than water", "density less than", "density greater than"]),
                 P("an object floats if its density is less than that of the liquid and sinks if it is greater", ["floats if", "sinks if", "floats when", "sinks when", "compare the densities", "density of the liquid"]),
@@ -232,7 +232,7 @@ written("w3_float_or_sink", 3, 4, "3g",
                      "objects float if their density is less than the liquid's; calculate each block's density from its mass and dimensions"],
         sample_fail=["The sinking block is heavier so heavy things sink", "The floating block has air in it"])
 
-written("w3_accurate_block_density", 3, 4, "3g",
+written("w5_accurate_block_density", 5, 4, "5d",
         stem="A student wants to determine the density of a small rectangular metal block as accurately as possible. Describe the measurements and explain two ways of reducing errors.",
         points=[P("measure the mass with a balance, and the length, breadth and height to find the volume (l × b × h)", ["balance", "mass", "length", "breadth", "height", "l × b × h", "dimensions", "vernier", "micrometer"]),
                 P("use an instrument with suitable precision for small dimensions (vernier calipers or micrometer rather than a ruler)", ["vernier", "micrometer", "more precise", "precision", "rather than a ruler", "instead of a ruler", "smaller division"]),
@@ -262,7 +262,7 @@ written("w3_gravitational_field", 3, 4, "3c",
                      "the region around the Earth where masses are attracted; the heavier mass has three times the weight but the mass cancels in the acceleration"],
         sample_fail=["A field is where gravity is strongest", "Heavier objects accelerate faster because they weigh more"])
 
-written("w3_high_heels_floor", 3, 4, "3i",
+written("w5_high_heels_floor", 5, 4, "5b",
         stem="A woman of weight 600 N wearing stiletto heels can dent a wooden floor, while an elephant of weight 60 000 N standing on the same floor does not. Explain this using pressure, with a rough comparison of the areas involved.",
         points=[P("pressure = force ÷ area, so what matters is the force per unit area, not the total force", ["force ÷ area", "force / area", "force divided by area", "force per unit area", "not the total force", "pressure not force"]),
                 P("a stiletto heel has a tiny area (about 1 cm²), so the woman's weight on one heel gives a very high pressure", ["tiny area", "small area", "1 cm", "very high pressure", "huge pressure", "large pressure", "high pressure"]),
@@ -278,7 +278,7 @@ written("w3_high_heels_floor", 3, 4, "3i",
                      "600 N on about 1 cm² is a huge pressure, but 60 000 N over thousands of cm² of elephant foot is less pressure"],
         sample_fail=["The elephant is heavier so it is more careful", "Wood is softer under shoes"])
 
-written("w3_block_on_faces", 3, 4, "3i",
+written("w5_block_on_faces", 5, 4, "5b",
         stem="Fig. 1 shows a rectangular block that can rest on any of its faces. Explain how the pressure it exerts on the floor depends on which face it stands on, and on which face the pressure is greatest.",
         points=[P("the force on the floor is the block's weight, which is the same whichever face it stands on", ["same weight", "same force", "weight is the same", "force does not change", "weight does not change", "not change the force", "not change the weight", "force is unchanged", "weight is unchanged", "force stays the same"]),
                 P("pressure = weight ÷ area of the face in contact, so a smaller face gives a greater pressure", ["weight ÷ area", "force ÷ area", "force / area", "divided by the area", "smaller face", "smaller area", "greater pressure", "higher pressure"]),
@@ -294,7 +294,7 @@ written("w3_block_on_faces", 3, 4, "3i",
         sample_fail=["The pressure is the same on every face", "The biggest face gives the biggest pressure"])
 
 # ---------------------------------------------------------------- L5
-written("w3_claim_heavier_denser", 3, 5, "3g",
+written("w5_claim_heavier_denser", 5, 5, "5d",
         stem="A student says: 'A heavier object always has a higher density than a lighter one.' Evaluate this claim with an example.",
         points=[P("the claim is wrong: density depends on mass AND volume, not on mass alone", ["wrong", "incorrect", "not true", "disagree", "depends on volume", "mass and volume", "not just mass", "mass per unit volume"]),
                 P("a large object can be heavy yet have a low density, while a small object can be light yet dense", ["large", "small", "big", "low density", "high density", "less dense", "more dense"]),
@@ -308,7 +308,7 @@ written("w3_claim_heavier_denser", 3, 5, "3g",
         sample_pass=["Wrong: density depends on mass and volume; a big block of wood is heavier than a steel nail but less dense", "incorrect, a large bag of feathers weighs more than a small lead weight but lead is denser"],
         sample_fail=["Correct, heavy things are always dense", "Density is the same as weight"])
 
-written("w3_compare_liquid_densities", 3, 5, "3g",
+written("w5_compare_liquid_densities", 5, 5, "5d",
         stem="You are given two liquids that do not mix. Describe two different ways to decide which liquid is denser, and explain the physics behind each.",
         points=[P("method 1: measure the mass of equal volumes of each with a measuring cylinder and balance; the one with the greater mass for the same volume is denser (density = mass ÷ volume)", ["equal volumes", "same volume", "mass of each", "balance", "measuring cylinder", "mass ÷ volume", "mass / volume", "greater mass for the same volume"]),
                 P("method 2: pour them into one container; the denser liquid sinks to the bottom and the less dense one floats on top", ["pour them together", "one container", "layers", "sinks to the bottom", "floats on top", "forms a layer", "settles below"]),
@@ -339,7 +339,7 @@ written("w3_weight_same_everywhere_claim", 3, 5, "3f",
                      "the student has confused mass and weight: weight = mg is about 500 N and depends on the gravitational field strength"],
         sample_fail=["The statement is correct", "Weight is 50 kg everywhere but mass changes"])
 
-written("w3_tank_tracks_camel", 3, 5, "3i",
+written("w5_tank_tracks_camel", 5, 5, "5b",
         stem="Tanks use wide caterpillar tracks instead of wheels, and camels have broad flat feet. Explain the common principle, and discuss why the same principle is reversed in the design of a nail or an ice skate.",
         points=[P("tracks and broad feet spread the weight over a large area, giving a low pressure so the vehicle or animal does not sink into soft ground or sand", ["large area", "spread", "low pressure", "small pressure", "reduce the pressure", "not sink", "soft ground", "sand", "mud"]),
                 P("a nail or skate blade has a very small area, so the same force gives a very high pressure", ["small area", "tiny area", "high pressure", "large pressure", "concentrat", "thin blade", "sharp point"]),
@@ -354,7 +354,7 @@ written("w3_tank_tracks_camel", 3, 5, "3i",
                      "the principle is pressure = force/area: large area lowers the pressure for soft ground, small area raises it to drive a nail in"],
         sample_fail=["Tanks are heavy so they need big tracks to hold them", "Nails are made of strong metal"])
 
-written("w3_same_block_three_pressures", 3, 5, "3i",
+written("w5_same_block_three_pressures", 5, 5, "5b",
         stem="A block measures 10 cm × 20 cm × 40 cm and weighs 160 N. Explain how to find the pressure it exerts in each of its three possible resting positions, state which is largest, and give the largest and smallest values.",
         points=[P("pressure = weight ÷ area of the face in contact, with the area converted to m²", ["weight ÷ area", "force ÷ area", "force / area", "divided by the area", "convert to m", "÷ 10 000", "/ 10000", "in m²"]),
                 P("the three face areas are 200 cm² (0.02 m²), 400 cm² (0.04 m²) and 800 cm² (0.08 m²)", ["200 cm", "400 cm", "800 cm", "0.02", "0.04", "0.08"]),

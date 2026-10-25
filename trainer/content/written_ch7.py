@@ -35,7 +35,7 @@ written("w7_gas_motion", 7, 1, "7b",
         sample_pass=["They move randomly and very fast in every direction", "the particles move about freely at high speeds"],
         sample_fail=["They vibrate about fixed positions", "They are close together"])
 
-written("w7_temperature_ke", 7, 1, "7c",
+written("w7_temperature_ke", 7, 1, "7d",
         stem="What happens to the average kinetic energy of the particles of a body when its temperature rises?",
         points=[P("it increases", ["increases", "increase", "rises", "goes up", "greater", "higher", "more kinetic", "faster"])],
         pitfalls=[PF(["decreases", "falls", "goes down", "lower"], "A higher temperature means the particles move faster on average, so their average kinetic energy INCREASES.")],
@@ -47,7 +47,7 @@ written("w7_temperature_ke", 7, 1, "7c",
         sample_pass=["It increases", "the particles move faster so their average kinetic energy is higher"],
         sample_fail=["It decreases", "It stays the same"])
 
-written("w7_name_melting", 7, 1, "7e",
+written("w9_name_melting", 9, 1, "9d",
         stem="Name the change of state from solid to liquid.",
         points=[P("melting", ["melting", "melt", "melts", "fusion"])],
         pitfalls=[PF(["freezing", "solidification", "solidifying"], "Freezing (solidification) is liquid to solid: the opposite change."),
@@ -60,7 +60,7 @@ written("w7_name_melting", 7, 1, "7e",
         sample_pass=["Melting", "it melts"],
         sample_fail=["Freezing", "boiling"])
 
-written("w7_name_condensation", 7, 1, "7e",
+written("w9_name_condensation", 9, 1, "9d",
         stem="Name the change of state from gas to liquid.",
         points=[P("condensation", ["condensation", "condense", "condenses", "condensing"])],
         pitfalls=[PF(["evaporation", "evaporating", "boiling"], "Evaporation and boiling are liquid to gas: the opposite change.")],
@@ -100,7 +100,7 @@ written("w7_gas_compressible", 7, 2, "7a",
         sample_pass=["Gas particles are far apart so they can be squashed closer, but liquid particles are already touching", "there are big gaps between gas particles but liquid particles are closely packed"],
         sample_fail=["Gases are lighter than liquids", "Gas particles move faster"])
 
-written("w7_internal_energy_meaning", 7, 2, "7d",
+written("w9_internal_energy_meaning", 9, 2, "9a",
         stem="State what is meant by the internal energy of a body.",
         points=[P("the total kinetic energy of the random motion of its particles", ["kinetic energy", "kinetic", "random motion", "motion of the particles"]),
                 P("plus the total potential energy between the particles", ["potential energy", "potential", "forces between", "separation", "bonds between"])],
@@ -127,7 +127,7 @@ written("w7_solid_shape_volume", 7, 2, "7b",
                      "strong forces keep them in place and they only vibrate; they are close together so there is no space"],
         sample_fail=["Solids are hard", "The particles are far apart"])
 
-written("w7_heating_curve_flat", 7, 2, "7e",
+written("w9_heating_curve_flat", 9, 2, "9d",
         stem="Fig. 1 shows the temperature of a substance being heated steadily. State what is happening between the 4th and 10th minute, and what the energy supplied is being used for.",
         points=[P("the substance is melting (changing state)", ["melting", "melts", "changing state", "change of state", "solid to liquid"]),
                 P("the energy is used to break / weaken the forces between particles (increase their potential energy), not to raise temperature", ["break", "weaken", "overcome the forces", "potential energy", "bonds", "separate the particles", "not to raise", "not increase the temperature"])],
@@ -142,7 +142,7 @@ written("w7_heating_curve_flat", 7, 2, "7e",
         sample_fail=["The heater stopped working", "It is boiling and the particles speed up"])
 
 # ---------------------------------------------------------------- L3
-written("w7_melting_constant_temp", 7, 3, "7e",
+written("w9_melting_constant_temp", 9, 3, "9d",
         stem="Explain why the temperature of a melting solid stays constant even though it is being heated.",
         points=[P("the energy supplied is used to weaken / break the forces between particles", ["break", "weaken", "overcome the forces", "loosen", "bonds", "separate the particles"]),
                 P("so the potential energy of the particles increases", ["potential energy", "potential"]),
@@ -186,7 +186,7 @@ written("w7_gas_fills_container", 7, 3, "7b",
                      "they move freely in all directions because there are almost no forces between them, until they hit the walls"],
         sample_fail=["Gases are light so they float everywhere", "The particles vibrate in fixed positions"])
 
-written("w7_hot_cold_water_compare", 7, 3, "7c",
+written("w7_hot_cold_water_compare", 7, 3, "7d",
         stem="Fig. 1 shows two beakers containing the same mass of water, one at 20 °C and one at 80 °C. Compare the average kinetic energy of the particles, and state which beaker has more internal energy.",
         points=[P("the particles in the 80 °C water have a higher average kinetic energy / move faster", ["80 higher", "80 greater", "80 more kinetic", "hotter water higher", "hotter faster", "80 faster", "higher average kinetic", "greater average kinetic", "move faster"]),
                 P("the 80 °C water has more internal energy (same number of particles, greater total kinetic energy)", ["80 more internal", "hotter has more internal", "more internal energy", "greater internal energy", "higher internal energy"])],
@@ -200,7 +200,7 @@ written("w7_hot_cold_water_compare", 7, 3, "7c",
         sample_pass=["The particles at 80 °C have greater average kinetic energy and the hot water has more internal energy", "hotter water: particles move faster on average, so higher average kinetic energy and higher internal energy"],
         sample_fail=["They have the same internal energy because they have the same mass", "The cold water has more energy"])
 
-written("w7_condensation_energy", 7, 3, "7e",
+written("w9_condensation_energy", 9, 3, "9h",
         stem="Explain, in terms of particles and energy, why condensation transfers energy to the surroundings even though the temperature does not change.",
         points=[P("gas particles come closer together and bonds / attractive forces form", ["closer together", "come together", "bonds form", "forces pull", "attract", "potential energy decreases", "potential energy falls", "lower potential"]),
                 P("the energy released (from the decrease in potential energy) is transferred to the surroundings", ["released", "given out", "transferred to the surroundings", "energy is lost to", "gives energy to"]),
@@ -216,7 +216,7 @@ written("w7_condensation_energy", 7, 3, "7e",
         sample_fail=["The gas gets colder", "The particles speed up"])
 
 # ---------------------------------------------------------------- L4
-written("w7_cooling_curve", 7, 4, "7e",
+written("w9_cooling_curve", 9, 4, "9i",
         stem="Fig. 1 shows the temperature of a liquid as it cools and solidifies. Explain the shape of the graph between the 3rd and 9th minute.",
         points=[P("the liquid is solidifying / freezing", ["solidifying", "solidifies", "freezing", "freezes", "changing state", "liquid to solid", "turning into a solid"]),
                 P("energy is released as the particles form bonds / their potential energy decreases", ["released", "given out", "bonds form", "potential energy decreases", "potential energy falls", "forces form", "come closer"]),
@@ -233,7 +233,7 @@ written("w7_cooling_curve", 7, 4, "7e",
                      "it is solidifying; energy given out comes from the particles' potential energy, so the temperature stays constant"],
         sample_fail=["It has stopped cooling", "The particles speed up and the liquid boils"])
 
-written("w7_ice_melting_energy", 7, 4, "7e",
+written("w9_ice_melting_energy", 9, 4, "9h",
         stem="Ice at 0 °C is heated and becomes water at 0 °C. Explain why energy must be supplied even though the temperature does not change.",
         points=[P("energy is needed to weaken / break the forces holding the particles in fixed positions", ["break", "weaken", "overcome", "bonds", "forces holding", "free the particles", "out of their fixed positions"]),
                 P("the potential energy of the particles increases", ["potential energy increases", "potential energy rises", "greater potential", "more potential", "potential energy"]),
@@ -248,7 +248,7 @@ written("w7_ice_melting_energy", 7, 4, "7e",
                      "the energy breaks the bonds holding the particles in place; it raises potential energy, not temperature"],
         sample_fail=["The ice is very cold so it needs a lot of heat", "The particles move faster"])
 
-written("w7_cup_vs_pool", 7, 4, "7d",
+written("w9_cup_vs_pool", 9, 4, "9a",
         stem="A cup of tea is at 80 °C and a swimming pool is at 25 °C. State which has the greater internal energy and explain your answer.",
         points=[P("the swimming pool has the greater internal energy", ["pool has more", "pool has the greater", "pool greater", "pool more internal", "swimming pool has", "pool has a larger"]),
                 P("because it contains far more particles, so the total kinetic and potential energy is larger", ["more particles", "many more particles", "far more particles", "total", "sum of", "huge number", "much greater mass", "more water"]),
@@ -297,7 +297,7 @@ written("w7_forces_solid_vs_gas", 7, 4, "7b",
         sample_fail=["X is hard and Z is soft", "The gas particles are heavier"])
 
 # ---------------------------------------------------------------- L5
-written("w7_student_claim_heater", 7, 5, "7e",
+written("w9_student_claim_heater", 9, 5, "9d",
         stem="Fig. 1 shows a heating curve. A student says: 'The heater must have stopped working between the 4th and 10th minute because the temperature did not rise.' Evaluate this claim.",
         points=[P("the claim is wrong: the heater kept supplying energy", ["wrong", "incorrect", "not correct", "disagree", "still supplying", "still on", "kept working", "did not stop", "continued"]),
                 P("the energy was used to change the state (melting), weakening the forces between particles / raising potential energy", ["melting", "change of state", "changing state", "potential energy", "break", "weaken", "bonds", "forces between"]),
@@ -314,7 +314,7 @@ written("w7_student_claim_heater", 7, 5, "7e",
                      "incorrect: the heater kept going but the energy was changing the state so the temperature stayed the same"],
         sample_fail=["The student is correct because the temperature did not change", "The heater stopped and then started again"])
 
-written("w7_same_temp_internal_energy", 7, 5, "7d",
+written("w9_same_temp_internal_energy", 9, 5, "9a",
         stem="1 kg of water and 1 kg of iron are at the same temperature. A student says they must have the same internal energy. Evaluate this statement.",
         points=[P("same temperature means the same AVERAGE kinetic energy per particle", ["same average kinetic", "average kinetic energy", "per particle", "average"]),
                 P("but internal energy is a total that also includes potential energy, and the two substances have different numbers of particles / different forces", ["potential energy", "total", "number of particles", "different particles", "different forces", "different substances", "different bonds"]),

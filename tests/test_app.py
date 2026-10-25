@@ -7,7 +7,7 @@ from streamlit.testing.v1 import AppTest
 APP = str(pathlib.Path(__file__).resolve().parents[1] / "app.py")
 
 
-def login(at, name="Amy Tan", cls="Sec 3 · 3SG2"):
+def login(at, name="Amy Tan", cls="Sec 3 · 3SG1"):
     at.text_input[0].input(name)
     at.selectbox[0].select(cls)
     next(b for b in at.button if b.label == "Start").click()

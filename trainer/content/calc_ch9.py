@@ -1,254 +1,267 @@
-"""Chapter 9 General Wave Properties: v = f λ, period, reading wave graphs, echoes."""
-from .. import sketches
-from .base import fmt, nice, numeric_options, template
+"""Chapter 9 Thermal Properties of Matter (6091): Q = m c Δθ, Q = m L, heater power and time, heating curves, mixtures, efficiency."""
+from .. import figs2, sketches
+from .base import fmt, md_table, nice, numeric_options, template
+
+C_WATER = 4200
+L_ICE = 334000
+L_STEAM = 2260000
 
 
 # ---------------------------------------------------------------- L1
-@template("c9_speed_from_f_lambda", chapter=9, level=1, lo="9d")
-def speed_from_f_lambda(rng):
-    f = nice(rng, 2, 4, 5, 8, 10, 20, 50)
-    lam = nice(rng, 0.2, 0.5, 1.5, 2, 2.5, 4)
-    v = f * lam
-    opts, key, mis = numeric_options(rng, v, [
-        (f / lam, "You divided. Wave speed = frequency × wavelength."),
-        (lam / f, "You divided the wrong way round. v = f λ."),
-        (f + lam, "You added. v = f × λ."),
-    ], unit="m/s")
+@template("c9_energy_to_heat_water", chapter=9, level=1, lo="9c")
+def energy_to_heat_water(rng):
+    m = nice(rng, 0.5, 1.0, 1.5, 2.0, 2.5)
+    dt = nice(rng, 10, 15, 20, 25, 30, 40, 50)
+    Q = m * C_WATER * dt
+    opts, key, mis = numeric_options(rng, Q, [
+        (C_WATER * dt, "You left out the mass. Energy = mass × specific heat capacity × temperature change."),
+        (m * dt, "You left out the specific heat capacity (4200 J/(kg K))."),
+        (m * C_WATER, "You left out the temperature change."),
+    ], unit="J")
     return dict(
-        stem=f"Fig. 1 shows a wave of wavelength **{fmt(lam)} m**. Its frequency is **{fmt(f)} Hz**. What is the speed of the wave?",
-        figure=sketches.wave_graph(2, lam, kind="distance_m", cycles=2),
+        stem=f"Fig. 1 shows **{fmt(m)} kg** of water being heated. Its temperature rises by **{dt} °C**. The specific heat capacity of water is 4200 J/(kg K). How much energy is transferred to the water?",
+        figure=figs2.beaker_heater([f"mass = {fmt(m)} kg", f"temperature rise = {dt} °C", "c = 4200 J/(kg K)"]),
         options=opts, key=key, misconceptions=mis,
-        formula="wave speed = frequency × wavelength (v = f λ)",
-        working=["v = f λ", f"= {fmt(f)} × {fmt(lam)}", f"= **{fmt(v)} m/s**"],
-        hints=["Which equation links speed, frequency and wavelength?",
-               f"{fmt(f)} waves pass each second, and each is {fmt(lam)} m long.",
-               f"v = {fmt(f)} × {fmt(lam)}."],
+        formula="energy transferred = m c Δθ",
+        working=["Q = m c Δθ", f"= {fmt(m)} × 4200 × {dt}", f"= **{fmt(Q)} J**"],
+        hints=[
+            "Which formula links energy, mass, specific heat capacity and temperature change?",
+            "Q = m c Δθ. All three values are given in the right units.",
+            f"{fmt(m)} × 4200 × {dt} = ?",
+        ],
     )
 
 
-@template("c9_period_from_frequency", chapter=9, level=1, lo="9c")
-def period_from_frequency(rng):
-    f = nice(rng, 2, 4, 5, 8, 10, 20, 25, 50)
-    T = 1 / f
-    opts, key, mis = numeric_options(rng, T, [
-        (f, "That is the frequency. Period = 1 ÷ frequency."),
-        (2 / f, "You doubled. One period is ONE complete oscillation: T = 1 ÷ f."),
-        (1 / (2 * f), "You halved. T = 1 ÷ f, not 1 ÷ 2f."),
-    ], unit="s")
+@template("c9_energy_to_melt", chapter=9, level=1, lo="9g")
+def energy_to_melt(rng):
+    m = nice(rng, 0.2, 0.25, 0.5, 0.8, 1.0, 1.5, 2.0)
+    Q = m * L_ICE
+    opts, key, mis = numeric_options(rng, Q, [
+        (L_ICE, "That is the energy to melt 1 kg. Multiply by the mass."),
+        (m * C_WATER, "You used the specific heat capacity. Melting at 0 °C involves LATENT heat: Q = m L."),
+        (m * L_STEAM, "You used the latent heat of vaporisation (boiling). Melting uses the latent heat of fusion."),
+    ], unit="J", sf=3)
+    table = md_table(["quantity", "value"], [["mass of ice", f"{fmt(m)} kg"], ["temperature of ice", "0 °C"], ["specific latent heat of fusion of ice", "334 000 J/kg"]])
     return dict(
-        stem=f"Fig. 1 shows the displacement–time graph of a particle in a wave of frequency **{fmt(f)} Hz**. What is the period of the wave?",
-        figure=sketches.wave_graph(2, T, kind="time", cycles=2),
+        stem=f"A block of ice at 0 °C melts completely to water at 0 °C.\n\n{table}\n\nHow much energy is absorbed by the ice as it melts?",
         options=opts, key=key, misconceptions=mis,
-        formula="period T = 1 ÷ frequency",
-        working=["T = 1 ÷ f", f"= 1 ÷ {fmt(f)}", f"= **{fmt(T)} s**"],
-        hints=["Frequency is the number of waves per second. How long does ONE wave take?",
-               f"{fmt(f)} waves each second, so each one takes 1 ÷ {fmt(f)} s.",
-               f"T = 1 ÷ {fmt(f)}."],
+        formula="energy for a change of state = m L (no temperature change)",
+        working=["Q = m L", f"= {fmt(m)} × 334 000", f"= **{fmt(Q, sf=3)} J**"],
+        hints=[
+            "The temperature does not change, so this is a latent-heat question, not a specific-heat-capacity question.",
+            "Q = m × specific latent heat of fusion.",
+            f"{fmt(m)} × 334 000 = ?",
+        ],
     )
 
 
 # ---------------------------------------------------------------- L2
-@template("c9_wavelength_from_graph", chapter=9, level=2, lo="9c")
-def wavelength_from_graph(rng):
-    lam = nice(rng, 4, 6, 8, 10, 12, 20)
-    A = nice(rng, 1, 2, 3, 4, 5)
-    opts, key, mis = numeric_options(rng, lam, [
-        (lam / 2, "That is the distance from a crest to the next trough: HALF a wavelength."),
-        (2 * lam, "That is two wavelengths. One wavelength is crest to the next crest."),
-        (A, "That is the amplitude, read from the vertical axis."),
-    ], unit="cm")
+@template("c9_shc_from_data", chapter=9, level=2, lo="9c")
+def shc_from_data(rng):
+    c = nice(rng, 380, 450, 500, 900, 2400)
+    m = nice(rng, 0.5, 1.0, 2.0)
+    dt = nice(rng, 10, 15, 20, 25, 40)
+    Q = m * c * dt
+    opts, key, mis = numeric_options(rng, c, [
+        (Q / dt, "You forgot to divide by the mass as well: c = Q ÷ (m Δθ)."),
+        (Q / m, "You forgot to divide by the temperature change as well: c = Q ÷ (m Δθ)."),
+        (Q * m * dt, "You multiplied. Rearrange Q = m c Δθ to make c the subject."),
+    ], unit="J/(kg K)")
     return dict(
-        stem="Fig. 1 shows the displacement–distance graph of a wave at one instant. What is the wavelength of the wave?",
-        figure=sketches.wave_graph(A, lam, kind="distance", cycles=2),
+        stem=f"Fig. 1 shows a heater in a metal block of mass **{fmt(m)} kg**. The heater supplies **{fmt(Q)} J** and the temperature of the block rises by **{dt} °C**. No energy is lost. What is the specific heat capacity of the metal?",
+        figure=figs2.heater_block([f"mass = {fmt(m)} kg", f"energy supplied = {fmt(Q)} J", f"temperature rise = {dt} °C"]),
         options=opts, key=key, misconceptions=mis,
-        formula="wavelength = distance between two successive crests (or any two successive points in phase)",
-        working=[f"crest to next crest on the distance axis: from {fmt(lam / 4)} cm to {fmt(5 * lam / 4)} cm", f"wavelength = **{fmt(lam)} cm**"],
-        hints=["Wavelength is a DISTANCE along the horizontal axis. Between which two points do you measure it?",
-               "Find one crest and the next crest, and read the distance between them.",
-               f"The first crest is at {fmt(lam / 4)} cm and the next at {fmt(5 * lam / 4)} cm."],
+        formula="Q = m c Δθ  →  c = Q ÷ (m Δθ)",
+        working=["c = Q ÷ (m Δθ)", f"= {fmt(Q)} ÷ ({fmt(m)} × {dt})", f"= **{c} J/(kg K)**"],
+        hints=[
+            "Start from Q = m c Δθ and make c the subject.",
+            f"c = Q ÷ (m × Δθ) = {fmt(Q)} ÷ ({fmt(m)} × {dt}).",
+            f"{fmt(m)} × {dt} = {fmt(m * dt)}; now divide {fmt(Q)} by that.",
+        ],
     )
 
 
-@template("c9_amplitude_from_graph", chapter=9, level=2, lo="9c")
-def amplitude_from_graph(rng):
-    lam = nice(rng, 4, 6, 8, 10, 12)
-    A = nice(rng, 1, 1.5, 2, 2.5, 3, 4, 5)
-    opts, key, mis = numeric_options(rng, A, [
-        (2 * A, "That is crest to trough. Amplitude is from the REST position to the crest."),
-        (A / 2, "You halved the crest height. Amplitude = maximum displacement from rest."),
-        (lam, "That is the wavelength, read along the distance axis."),
-    ], unit="cm")
+@template("c9_mass_boiled_away", chapter=9, level=2, lo="9g")
+def mass_boiled_away(rng):
+    P = nice(rng, 1130, 1500, 2000, 2260, 3000)
+    t_min = nice(rng, 2, 3, 4, 5)
+    Q = P * t_min * 60
+    m = Q / L_STEAM
+    opts, key, mis = numeric_options(rng, m, [
+        (P * t_min / L_STEAM, "You used the time in minutes. Energy = power × time needs the time in SECONDS."),
+        (Q / L_ICE, "You used the latent heat of fusion (melting). Boiling uses the latent heat of vaporisation, 2 260 000 J/kg."),
+        (Q / C_WATER, "You used the specific heat capacity. The water is already at 100 °C, so the energy goes into changing state: Q = m L."),
+    ], unit="kg", sf=3)
     return dict(
-        stem="Fig. 1 shows the displacement–distance graph of a wave at one instant. What is the amplitude of the wave?",
-        figure=sketches.wave_graph(A, lam, kind="distance", cycles=2),
+        stem=f"Fig. 1 shows a **{P} W** heater in boiling water at 100 °C. It is left on for **{t_min} minutes**. The specific latent heat of vaporisation of water is 2 260 000 J/kg. What mass of water is turned into steam?",
+        figure=figs2.beaker_heater([f"power = {P} W", f"time = {t_min} min", "water at 100 °C"], liquid="boiling water"),
         options=opts, key=key, misconceptions=mis,
-        formula="amplitude = maximum displacement from the rest (zero) position",
-        working=[f"the crest reaches {fmt(A)} cm above the rest position", f"amplitude = **{fmt(A)} cm**"],
-        hints=["Amplitude is measured on the VERTICAL axis. From where to where?",
-               "From the rest position (displacement 0) up to the top of a crest.",
-               f"The crest is at a displacement of {fmt(A)} cm."],
-    )
-
-
-@template("c9_frequency_from_time_graph", chapter=9, level=2, lo="9c")
-def frequency_from_time_graph(rng):
-    T = nice(rng, 0.1, 0.2, 0.25, 0.4, 0.5, 2, 4)
-    f = 1 / T
-    A = nice(rng, 1, 2, 3)
-    opts, key, mis = numeric_options(rng, f, [
-        (T, "That is the period in seconds. Frequency = 1 ÷ period."),
-        (1 / (2 * T), "You used two periods. Read the time for ONE complete wave."),
-        (2 / T, "You used half a period (crest to trough). One full wave is crest to crest."),
-    ], unit="Hz")
-    return dict(
-        stem="Fig. 1 shows the displacement–time graph of a particle in a wave. What is the frequency of the wave?",
-        figure=sketches.wave_graph(A, T, kind="time", cycles=2),
-        options=opts, key=key, misconceptions=mis,
-        formula="period T = time for one complete wave (read from the graph); f = 1 ÷ T",
-        working=[f"one complete wave takes T = {fmt(T)} s (crest at {fmt(T / 4)} s to crest at {fmt(5 * T / 4)} s)", f"f = 1 ÷ {fmt(T)} = **{fmt(f)} Hz**"],
-        hints=["This graph has TIME on the horizontal axis, so crest to crest gives the period. Then how do you get frequency?",
-               f"Crest to crest = {fmt(T)} s. That is the period T.",
-               f"f = 1 ÷ {fmt(T)}."],
+        formula="energy = P t (t in seconds); m = energy ÷ L",
+        working=[f"energy = P t = {P} × {t_min * 60} = {fmt(Q)} J", f"m = Q ÷ L = {fmt(Q)} ÷ 2 260 000", f"= **{fmt(m, sf=3)} kg**"],
+        hints=[
+            "Two steps: how much energy does the heater supply, and how much water does that energy boil away?",
+            f"energy = power × time = {P} × ({t_min} × 60) J.",
+            f"m = {fmt(Q)} ÷ 2 260 000.",
+        ],
     )
 
 
 # ---------------------------------------------------------------- L3
-@template("c9_speed_from_graph_and_period", chapter=9, level=3, lo="9d")
-def speed_from_graph_and_period(rng):
-    lam_cm = nice(rng, 4, 5, 8, 10, 20, 40)
-    T = nice(rng, 0.1, 0.2, 0.25, 0.5, 2)
-    lam = lam_cm / 100
-    v = lam / T
-    opts, key, mis = numeric_options(rng, v, [
-        (lam_cm / T, "You left the wavelength in cm. Convert to metres for a speed in m/s."),
-        (lam * T, "You multiplied by the period. v = f λ = λ ÷ T."),
-        (T / lam, "You divided the wrong way round: v = λ ÷ T."),
-    ], unit="m/s")
+@template("c9_heater_time", chapter=9, level=3, lo="9c")
+def heater_time(rng):
+    P = nice(rng, 500, 800, 1000, 1500, 2000)
+    m = nice(rng, 0.5, 1.0, 1.5, 2.0)
+    dt = nice(rng, 20, 30, 40, 50, 60, 80)
+    Q = m * C_WATER * dt
+    t = Q / P
+    opts, key, mis = numeric_options(rng, t, [
+        (Q / P / 60, "That is the time in minutes. The options are in seconds."),
+        (P / (m * dt), "You divided the wrong things. Find the energy needed first (m c Δθ), then time = energy ÷ power."),
+        (Q * P, "You multiplied energy by power. Power = energy ÷ time, so time = energy ÷ power."),
+    ], unit="s", sf=3)
     return dict(
-        stem=f"Fig. 1 shows the displacement–distance graph of a wave. The period of the wave is **{fmt(T)} s**. What is the speed of the wave?",
-        figure=sketches.wave_graph(2, lam_cm, kind="distance", cycles=2),
+        stem=f"Fig. 1 shows a **{P} W** heater in **{fmt(m)} kg** of water. How long does it take to raise the temperature of the water by **{dt} °C**? Assume no energy is lost. (c of water = 4200 J/(kg K))",
+        figure=figs2.beaker_heater([f"power = {P} W", f"mass = {fmt(m)} kg", f"temperature rise = {dt} °C"]),
         options=opts, key=key, misconceptions=mis,
-        formula="f = 1 ÷ T, then v = f λ (equivalently v = λ ÷ T), with λ in metres",
-        working=[f"from the graph λ = {fmt(lam_cm)} cm = {fmt(lam)} m", f"f = 1 ÷ {fmt(T)} = {fmt(1 / T)} Hz",
-                 f"v = f λ = {fmt(1 / T)} × {fmt(lam)} = **{fmt(v)} m/s**"],
-        hints=["Read the wavelength from the graph (crest to crest). Then you need the frequency: how do you get it from the period?",
-               f"λ = {fmt(lam_cm)} cm = {fmt(lam)} m. f = 1 ÷ {fmt(T)} = {fmt(1 / T)} Hz.",
-               f"v = {fmt(1 / T)} × {fmt(lam)}."],
+        formula="energy needed = m c Δθ; time = energy ÷ power",
+        working=[f"Q = m c Δθ = {fmt(m)} × 4200 × {dt} = {fmt(Q)} J", f"t = Q ÷ P = {fmt(Q)} ÷ {P}", f"= **{fmt(t, sf=3)} s**"],
+        hints=[
+            "First work out how much energy the water needs. Then ask how long the heater takes to supply it.",
+            f"Q = {fmt(m)} × 4200 × {dt} J. Power tells you joules per second.",
+            f"t = {fmt(Q)} ÷ {P}.",
+        ],
     )
 
 
-@template("c9_echo_distance", chapter=9, level=3, lo="9i")
-def echo_distance(rng):
-    v = 340
-    t = nice(rng, 0.4, 0.5, 0.8, 1.0, 1.2, 1.5, 2.0)
-    d = v * t / 2
-    opts, key, mis = numeric_options(rng, d, [
-        (v * t, "You forgot that the sound travels to the wall AND back. The distance to the wall is half the total path."),
-        (v * t / 4, "You halved twice. The total path is v × t; the wall is half of that away."),
-        (v / t, "You divided speed by time. Distance = speed × time (then halve for one way)."),
-    ], unit="m")
+@template("c9_heating_curve_melting_time", chapter=9, level=3, lo="9d")
+def heating_curve_melting_time(rng):
+    mp = nice(rng, 40, 50, 60, 80)
+    t_start = nice(rng, 2, 3, 4)
+    dur = nice(rng, 3, 4, 5, 6)
+    pts = [(0, 20), (t_start, mp), (t_start + dur, mp), (t_start + dur + 3, mp + 30)]
+    opts, key, mis = numeric_options(rng, dur, [
+        (t_start + dur, "That is the time when melting FINISHES. Melting lasts from the start of the flat section to its end."),
+        (t_start, "That is when melting STARTS. The question asks how long it lasts."),
+        (mp, "That is the melting point in °C, not a time."),
+    ], unit="min")
     return dict(
-        stem=f"Fig. 1 shows a student who claps and hears the echo from a wall **{fmt(t)} s** later. The speed of sound in air is **340 m/s**. How far is the student from the wall?",
-        figure=sketches.echo_sketch("d = ?", f"echo heard after {fmt(t)} s"),
+        stem="Fig. 1 shows the heating curve of a solid that is heated at a steady rate. For how long is the substance melting?",
+        figure=sketches.heating_curve(pts),
         options=opts, key=key, misconceptions=mis,
-        formula="total path = speed × time = 2 d, so d = v t ÷ 2",
-        working=[f"total distance travelled by the sound = 340 × {fmt(t)} = {fmt(v * t)} m", f"this is there AND back, so d = {fmt(v * t)} ÷ 2", f"= **{fmt(d)} m**"],
-        hints=["The sound goes to the wall and comes back before it is heard. How far does it travel in total?",
-               f"Total path = 340 × {fmt(t)} = {fmt(v * t)} m, which is twice the distance to the wall.",
-               f"d = {fmt(v * t)} ÷ 2."],
+        formula="during melting the temperature stays constant: the flat section of the curve lasts for the melting time",
+        working=[f"the temperature stays at {mp} °C (the melting point) from {t_start} min to {t_start + dur} min", f"melting time = {t_start + dur} − {t_start}", f"= **{dur} min**"],
+        hints=[
+            "Which part of the curve shows the substance melting? Think about what happens to the temperature during a change of state.",
+            "Energy supplied during the flat section goes into separating the particles (latent heat), not into raising the temperature.",
+            "Read the time at the start and end of the flat section and subtract.",
+        ],
     )
 
 
 # ---------------------------------------------------------------- L4
-@template("c9_wavefronts_speed", chapter=9, level=4, lo="9d")
-def wavefronts_speed(rng):
-    n = nice(rng, 4, 5, 6)
-    lam_cm = nice(rng, 2, 3, 4, 5, 6)
-    span = (n - 1) * lam_cm
-    f = nice(rng, 2, 4, 5, 8, 10)
-    v = f * lam_cm / 100
-    opts, key, mis = numeric_options(rng, v, [
-        (f * span / n / 100, f"You divided the {span} cm by the number of wavefronts ({n}). There are only {n - 1} wavelengths between {n} wavefronts."),
-        (f * lam_cm, "You left the wavelength in cm. Convert to metres for m/s."),
-        (f * span / 100, "You used the whole span as one wavelength. The span covers several wavelengths."),
-    ], unit="m/s")
+@template("c9_ice_to_warm_water", chapter=9, level=4, lo="9g")
+def ice_to_warm_water(rng):
+    m = nice(rng, 0.1, 0.2, 0.25, 0.5)
+    final = nice(rng, 10, 20, 25, 30, 40)
+    Q1 = m * L_ICE
+    Q2 = m * C_WATER * final
+    Q = Q1 + Q2
+    opts, key, mis = numeric_options(rng, Q, [
+        (Q1, "That is only the energy to MELT the ice. The water then has to be warmed from 0 °C to the final temperature."),
+        (Q2, "That is only the energy to warm the water. The ice must first be melted (latent heat)."),
+        (m * L_ICE + m * L_ICE * final, "You used the latent heat for the warming stage too. Warming uses m c Δθ."),
+    ], unit="J", sf=3)
+    table = md_table(["quantity", "value"], [["mass of ice", f"{fmt(m)} kg"], ["initial temperature", "0 °C"], ["final temperature", f"{final} °C"], ["L of fusion of ice", "334 000 J/kg"], ["c of water", "4200 J/(kg K)"]])
     return dict(
-        stem=f"Fig. 1 shows **{n}** successive wavefronts in a ripple tank. The distance between the first and last wavefront is **{span} cm**. The dipper vibrates at **{fmt(f)} Hz**. What is the speed of the water waves?",
-        figure=sketches.wavefronts_sketch(n, f"{span} cm"),
+        stem=f"Ice at 0 °C is turned into water at **{final} °C**.\n\n{table}\n\nHow much energy is needed in total?",
         options=opts, key=key, misconceptions=mis,
-        formula="λ = span ÷ (number of wavefronts − 1), then v = f λ with λ in m",
-        working=[f"{n} wavefronts span {n - 1} wavelengths: λ = {span} ÷ {n - 1} = {lam_cm} cm = {fmt(lam_cm / 100)} m",
-                 f"v = f λ = {fmt(f)} × {fmt(lam_cm / 100)}", f"= **{fmt(v)} m/s**"],
-        hints=["Successive wavefronts are one wavelength apart. How many wavelengths fit between the first and the last wavefront?",
-               f"{n} wavefronts have {n - 1} gaps, so λ = {span} ÷ {n - 1} = {lam_cm} cm. Convert to metres.",
-               f"v = {fmt(f)} × {fmt(lam_cm / 100)}."],
+        formula="two stages: melt the ice (m L) then warm the water (m c Δθ); add them",
+        working=[f"melting: Q₁ = m L = {fmt(m)} × 334 000 = {fmt(Q1)} J", f"warming: Q₂ = m c Δθ = {fmt(m)} × 4200 × {final} = {fmt(Q2)} J", f"total = {fmt(Q1)} + {fmt(Q2)} = **{fmt(Q, sf=3)} J**"],
+        hints=[
+            "The ice goes through two different processes. Name them, and say which formula each one uses.",
+            "Stage 1: solid → liquid at 0 °C (latent heat). Stage 2: water from 0 °C up to the final temperature (specific heat capacity).",
+            f"{fmt(m)} × 334 000 + {fmt(m)} × 4200 × {final}.",
+        ],
     )
 
 
-@template("c9_echo_time", chapter=9, level=4, lo="9i")
-def echo_time(rng):
-    v = 340
-    d = nice(rng, 51, 68, 85, 102, 136, 170, 255)
-    t = 2 * d / v
-    opts, key, mis = numeric_options(rng, t, [
-        (d / v, "That is the time for the sound to REACH the wall. The echo needs the return trip too."),
-        (4 * d / v, "You doubled twice. The round trip is 2d."),
-        (v / (2 * d), "You divided the wrong way round: time = distance ÷ speed."),
-    ], unit="s")
+@template("c9_power_from_heating_curve", chapter=9, level=4, lo="9c")
+def power_from_heating_curve(rng):
+    m = nice(rng, 0.5, 1.0, 2.0)
+    c = nice(rng, 2400, 4200)
+    liquid = "water" if c == 4200 else "ethanol"
+    rate = nice(rng, 2, 3, 4, 5)         # °C per minute
+    pts = [(0, 20), (10, 20 + 10 * rate)]
+    P = m * c * rate / 60
+    opts, key, mis = numeric_options(rng, P, [
+        (m * c * rate, "You used the temperature rise per MINUTE as if it were per second. Divide by 60."),
+        (m * c * 10 * rate, "That is the total energy supplied in 10 minutes, in joules. Power is energy per second."),
+        (c * rate / 60, "You left out the mass."),
+    ], unit="W", sf=3)
     return dict(
-        stem=f"Fig. 1 shows a student standing **{fmt(d)} m** from a large wall. She shouts. The speed of sound in air is **340 m/s**. How long after shouting does she hear the echo?",
-        figure=sketches.echo_sketch(f"d = {fmt(d)} m", "time until echo = ?"),
+        stem=f"A heater warms **{fmt(m)} kg** of {liquid} (c = {c} J/(kg K)). Fig. 1 shows the temperature-time graph. No energy is lost. What is the power of the heater?",
+        figure=figs2.temp_time_graph(pts, xstep=2, ymax=(int((20 + 10 * rate) / 20) + 1) * 20),
         options=opts, key=key, misconceptions=mis,
-        formula="time = total path ÷ speed = 2 d ÷ v",
-        working=[f"total path = 2 × {fmt(d)} = {fmt(2 * d)} m", f"time = {fmt(2 * d)} ÷ 340", f"= **{fmt(t)} s**"],
-        hints=["How far does the sound travel before she hears it: to the wall only, or there and back?",
-               f"Round trip = 2 × {fmt(d)} = {fmt(2 * d)} m at 340 m/s.",
-               f"t = {fmt(2 * d)} ÷ 340."],
+        formula="power = energy ÷ time = m c (Δθ ÷ Δt), with Δt in seconds",
+        working=[f"gradient = {rate} °C per minute, so in 10 min Δθ = {10 * rate} °C", f"energy in 10 min = m c Δθ = {fmt(m)} × {c} × {10 * rate} = {fmt(m * c * 10 * rate)} J", f"power = {fmt(m * c * 10 * rate)} ÷ 600 s = **{fmt(P, sf=3)} W**"],
+        hints=[
+            "Read how much the temperature rises in a known time, then work out the energy that took, then divide by the time in seconds.",
+            f"In 10 minutes the temperature rises by {10 * rate} °C. Energy = m c Δθ.",
+            f"P = ({fmt(m)} × {c} × {10 * rate}) ÷ 600.",
+        ],
     )
 
 
 # ---------------------------------------------------------------- L5
-@template("c9_speed_khz_cm", chapter=9, level=5, lo="9d")
-def speed_khz_cm(rng):
-    f_khz = nice(rng, 2, 4, 5, 8, 10, 20)
-    lam_cm = nice(rng, 1.7, 3.4, 4.25, 6.8, 8.5, 17)
-    v = f_khz * 1000 * lam_cm / 100
-    opts, key, mis = numeric_options(rng, v, [
-        (f_khz * lam_cm, "You used kHz and cm as if they were Hz and m. Convert both: × 1000 and ÷ 100."),
-        (f_khz * 1000 * lam_cm, "You converted the frequency but left the wavelength in cm."),
-        (f_khz * lam_cm / 100, "You converted the wavelength but left the frequency in kHz."),
-    ], unit="m/s")
+@template("c9_mixing_final_temperature", chapter=9, level=5, lo="9c")
+def mixing_final_temperature(rng):
+    m_hot = nice(rng, 0.2, 0.3, 0.5)
+    m_cold = nice(rng, 0.2, 0.3, 0.5, 1.0)
+    hot = nice(rng, 70, 80, 90)
+    cold = nice(rng, 10, 20, 25)
+    final = (m_hot * hot + m_cold * cold) / (m_hot + m_cold)
+    opts, key, mis = numeric_options(rng, final, [
+        ((hot + cold) / 2, "That is the simple average, correct only for equal masses." if m_hot != m_cold else "Check the arithmetic."),
+        ((m_cold * hot + m_hot * cold) / (m_hot + m_cold) if m_hot != m_cold else final - 7, "You swapped the masses: the larger mass pulls the final temperature towards its own." if m_hot != m_cold else "The final temperature must lie between the two starting temperatures."),
+        (hot - cold, "That is the temperature difference, not the final temperature."),
+    ], unit="°C", sf=3)
+    table = md_table(["water", "mass / kg", "temperature / °C"], [["hot", fmt(m_hot), hot], ["cold", fmt(m_cold), cold]])
     return dict(
-        stem=f"Fig. 1 shows the displacement–distance graph of a sound wave. Its frequency is **{fmt(f_khz)} kHz** and its wavelength is **{fmt(lam_cm)} cm**. What is the speed of the sound?",
-        figure=sketches.wave_graph(1, lam_cm, kind="distance", cycles=2),
+        stem=f"Hot water is poured into cold water in an insulated cup.\n\n{table}\n\nAssuming no energy is lost to the cup or the surroundings, what is the final temperature of the mixture?",
         options=opts, key=key, misconceptions=mis,
-        formula="v = f λ with f in Hz (kHz × 1000) and λ in m (cm ÷ 100)",
-        working=[f"f = {fmt(f_khz)} kHz = {fmt(f_khz * 1000)} Hz; λ = {fmt(lam_cm)} cm = {fmt(lam_cm / 100)} m",
-                 f"v = {fmt(f_khz * 1000)} × {fmt(lam_cm / 100)}", f"= **{fmt(v)} m/s**"],
-        hints=["v = f λ, but check the units of BOTH quantities before multiplying.",
-               f"{fmt(f_khz)} kHz = {fmt(f_khz * 1000)} Hz. {fmt(lam_cm)} cm = {fmt(lam_cm / 100)} m.",
-               f"v = {fmt(f_khz * 1000)} × {fmt(lam_cm / 100)}."],
+        formula="energy lost by hot water = energy gained by cold water:  m_hot c (θ_hot − θ) = m_cold c (θ − θ_cold)",
+        working=[f"{fmt(m_hot)} × 4200 × ({hot} − θ) = {fmt(m_cold)} × 4200 × (θ − {cold})", f"θ = ({fmt(m_hot)} × {hot} + {fmt(m_cold)} × {cold}) ÷ ({fmt(m_hot)} + {fmt(m_cold)})", f"= **{fmt(final, sf=3)} °C**"],
+        hints=[
+            "Energy lost by the hot water equals energy gained by the cold water. Write both as m c Δθ with the same unknown final temperature θ.",
+            "c cancels from both sides, leaving m_hot (hot − θ) = m_cold (θ − cold).",
+            f"θ = ({fmt(m_hot)} × {hot} + {fmt(m_cold)} × {cold}) ÷ {fmt(m_hot + m_cold)}.",
+        ],
     )
 
 
-@template("c9_frequency_from_speed_and_graph", chapter=9, level=5, lo="9d")
-def frequency_from_speed_and_graph(rng):
-    lam_cm = nice(rng, 2, 4, 5, 8, 10, 20, 25)
-    v = nice(rng, 2, 4, 5, 10, 20, 340)
-    lam = lam_cm / 100
-    f = v / lam
-    opts, key, mis = numeric_options(rng, f, [
-        (v / lam_cm, "You left the wavelength in cm. Convert to metres first."),
-        (v * lam, "You multiplied. Rearrange v = f λ to get f = v ÷ λ."),
-        (lam / v, "You divided the wrong way round: f = v ÷ λ."),
-    ], unit="Hz")
+@template("c9_kettle_efficiency", chapter=9, level=5, lo="9c")
+def kettle_efficiency(rng):
+    P = nice(rng, 2000, 2200, 2400, 3000)
+    m = nice(rng, 1.0, 1.5)
+    dt = nice(rng, 60, 70, 75, 80)
+    useful = m * C_WATER * dt
+    eff = nice(rng, 0.80, 0.84, 0.90)
+    t = round(useful / (P * eff))
+    actual_eff = useful / (P * t) * 100
+    opts, key, mis = numeric_options(rng, actual_eff, [
+        (100, "Not all the electrical energy ends up in the water: some warms the kettle and the air. The efficiency must be below 100%."),
+        (useful / P / t, "You found the fraction but forgot to multiply by 100 for a percentage."),
+        (P * t / useful * 100, "You divided input by output. Efficiency = useful output ÷ total input × 100%."),
+    ], unit="%", sf=3)
+    table = md_table(["quantity", "value"], [["power rating of kettle", f"{P} W"], ["mass of water", f"{fmt(m)} kg"], ["temperature rise", f"{dt} °C"], ["time taken", f"{t} s"]])
     return dict(
-        stem=f"Fig. 1 shows the displacement–distance graph of a wave travelling at **{fmt(v)} m/s**. What is the frequency of the wave?",
-        figure=sketches.wave_graph(2, lam_cm, kind="distance", cycles=2),
+        stem=f"A kettle heats water. The table gives the measurements.\n\n{table}\n\nTaking the specific heat capacity of water as 4200 J/(kg K), what is the efficiency of the kettle?",
         options=opts, key=key, misconceptions=mis,
-        formula="read λ from the graph (in m), then f = v ÷ λ",
-        working=[f"from the graph λ = {fmt(lam_cm)} cm = {fmt(lam)} m", f"f = v ÷ λ = {fmt(v)} ÷ {fmt(lam)}", f"= **{fmt(f)} Hz**"],
-        hints=["You need the wavelength from the graph. Read crest to crest, and note the unit on the axis.",
-               f"λ = {fmt(lam_cm)} cm = {fmt(lam)} m. Rearrange v = f λ.",
-               f"f = {fmt(v)} ÷ {fmt(lam)}."],
+        formula="efficiency = useful energy to the water (m c Δθ) ÷ electrical energy supplied (P t) × 100%",
+        working=[f"useful energy = m c Δθ = {fmt(m)} × 4200 × {dt} = {fmt(useful)} J", f"energy supplied = P t = {P} × {t} = {fmt(P * t)} J", f"efficiency = {fmt(useful)} ÷ {fmt(P * t)} × 100 = **{fmt(actual_eff, sf=3)}%**"],
+        hints=[
+            "Two energies are needed: the useful energy that went into the water, and the total electrical energy the kettle used.",
+            f"Useful: m c Δθ. Supplied: power × time = {P} × {t} J.",
+            f"efficiency = {fmt(useful)} ÷ {fmt(P * t)} × 100.",
+        ],
     )

@@ -26,7 +26,7 @@ def weight_from_mass(rng):
     )
 
 
-@template("c3_density_direct", chapter=3, level=1, lo="3g")
+@template("c5_density_direct", chapter=5, level=1, lo="5d")
 def density_direct(rng):
     rho = nice(rng, 0.8, 1.2, 2.5, 2.7, 4, 7.9, 8.9)
     V = nice(rng, 10, 20, 25, 40, 50, 100)
@@ -48,7 +48,7 @@ def density_direct(rng):
     )
 
 
-@template("c3_pressure_direct", chapter=3, level=1, lo="3i")
+@template("c5_pressure_direct", chapter=5, level=1, lo="5b")
 def pressure_direct(rng):
     F = nice(rng, 60, 120, 200, 240, 480, 600)
     A = nice(rng, 0.02, 0.04, 0.05, 0.1, 0.2, 0.5)
@@ -92,7 +92,7 @@ def mass_from_weight(rng):
     )
 
 
-@template("c3_pressure_area_cm2", chapter=3, level=2, lo="3i")
+@template("c5_pressure_area_cm2", chapter=5, level=2, lo="5b")
 def pressure_area_cm2(rng):
     F = nice(rng, 20, 50, 80, 120, 150, 300)
     A_cm2 = nice(rng, 20, 25, 40, 50, 80, 200)
@@ -115,7 +115,7 @@ def pressure_area_cm2(rng):
     )
 
 
-@template("c3_density_from_cylinder", chapter=3, level=2, lo="3g")
+@template("c5_density_from_cylinder", chapter=5, level=2, lo="5d")
 def density_from_cylinder(rng):
     V = nice(rng, 24, 36, 42, 48, 56, 64, 78)
     rho = nice(rng, 0.8, 1.2, 1.5, 2.0, 2.5)
@@ -138,7 +138,7 @@ def density_from_cylinder(rng):
 
 
 # ---------------------------------------------------------------- L3
-@template("c3_density_of_block", chapter=3, level=3, lo="3g")
+@template("c5_density_of_block", chapter=5, level=3, lo="5d")
 def density_of_block(rng):
     a, b, c = rng.choice([(2, 5, 10), (4, 5, 10), (2, 4, 5), (5, 5, 8), (4, 10, 10), (2, 5, 20), (5, 8, 10)])
     rho = nice(rng, 0.5, 0.8, 1.2, 2.5, 2.7, 4.0, 8.0)
@@ -161,7 +161,7 @@ def density_of_block(rng):
     )
 
 
-@template("c3_pressure_of_block", chapter=3, level=3, lo="3i")
+@template("c5_pressure_of_block", chapter=5, level=3, lo="5b")
 def pressure_of_block(rng):
     a, b, c = rng.choice([(10, 20, 30), (5, 10, 20), (20, 25, 40), (10, 40, 50), (8, 25, 40), (10, 10, 25)])
     W = nice(rng, 20, 40, 60, 80, 100, 150)
@@ -186,7 +186,7 @@ def pressure_of_block(rng):
 
 
 # ---------------------------------------------------------------- L4
-@template("c3_density_weight_pressure", chapter=3, level=4, lo="3i")
+@template("c5_density_weight_pressure", chapter=5, level=4, lo="5b")
 def density_weight_pressure(rng):
     a, b, c = rng.choice([(4, 10, 20), (5, 10, 20), (2, 10, 25), (4, 5, 25), (5, 20, 20), (10, 10, 40)])
     rho = nice(rng, 0.5, 2.0, 2.5, 4.0, 5.0, 8.0)
@@ -217,7 +217,7 @@ def density_weight_pressure(rng):
     )
 
 
-@template("c3_density_by_displacement", chapter=3, level=4, lo="3g")
+@template("c5_density_by_displacement", chapter=5, level=4, lo="5d")
 def density_by_displacement(rng):
     V1 = nice(rng, 30, 36, 40, 44, 50)
     dV = nice(rng, 8, 10, 12, 16, 20, 24)
@@ -265,7 +265,7 @@ def weight_on_moon(rng):
     )
 
 
-@template("c3_density_of_mixture", chapter=3, level=5, lo="3g")
+@template("c5_density_of_mixture", chapter=5, level=5, lo="5d")
 def density_of_mixture(rng):
     rho1, rho2 = rng.choice([(0.8, 1.2), (0.8, 1.0), (1.0, 1.5), (0.9, 1.3), (0.6, 1.2), (1.0, 2.0)])
     V1 = nice(rng, 100, 200, 300, 400)

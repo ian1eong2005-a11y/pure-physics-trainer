@@ -1,31 +1,42 @@
 """Every template x 20 seeds: well-formed question, four distinct options, key present, hints, a PNG figure or a data table,
-and 'Fig. 1' in the stem exactly when there is a figure."""
+and 'Fig. 1' in the stem exactly when there is a figure. Inventory: every 6091 chapter has the agreed minimum in each category."""
 import random
 from collections import Counter
 
 import pytest
 
+from trainer.config import CHAPTERS
 from trainer.content import TEMPLATES, inventory
 from trainer.content.recall import RECALL
 from trainer.content.recall2 import RECALL2
 
 PNG = b"\x89PNG\r\n\x1a\n"
 SEEDS = list(range(20))
+MIN_PER_CHAPTER = {"calc": 8, "explain": 8, "written": 10}     # first round agreed with the teacher, 25 Oct 2026
 
 
 def test_inventory():
+    inv = inventory()
+    short = []
+    for ch in CHAPTERS:
+        for cat, need in MIN_PER_CHAPTER.items():
+            have = sum(inv.get((cat, ch), {}).values())
+            if have < need:
+                short.append(f"Ch {ch} {cat}: {have}/{need}")
+    assert not short, "chapters below the agreed minimum: " + "; ".join(short)
     calc = [t for t in TEMPLATES if t.category == "calc"]
-    expl = [t for t in TEMPLATES if t.category == "explain"]
-    assert len(calc) >= 70
     levels = Counter(t.level for t in calc)
-    assert set(levels) == {1, 2, 3, 4, 5} and min(levels.values()) >= 8
-    assert {t.chapter for t in calc} == {1, 2, 3, 4, 5, 6, 9, 10}
-    assert len(expl) == len(RECALL) + len(RECALL2) >= 50
-    assert {t.chapter for t in expl} == set(range(1, 11))
+    assert set(levels) == {1, 2, 3, 4, 5}
     ids = [t.id for t in TEMPLATES]
     assert len(ids) == len(set(ids)), "duplicate template ids"
-    inv = inventory()
-    assert ("calc", 5) in inv and ("explain", 8) in inv
+    assert len([t for t in TEMPLATES if t.category == "explain"]) >= len(RECALL) + len(RECALL2)
+
+
+def test_every_chapter_has_every_level_somewhere():
+    """Each chapter offers all five levels across its categories (the engine borrows neighbouring levels within a category)."""
+    for ch in CHAPTERS:
+        levels = {t.level for t in TEMPLATES if t.chapter == ch}
+        assert levels == {1, 2, 3, 4, 5}, f"Ch {ch} levels {sorted(levels)}"
 
 
 MCQ = [t for t in TEMPLATES if t.category != "written"]
@@ -36,6 +47,7 @@ def test_template_well_formed(tpl):
     for seed in SEEDS:
         q = tpl.make(seed)
         assert q.template_id == tpl.id and q.level == tpl.level and q.chapter == tpl.chapter and q.category == tpl.category
+        assert q.chapter in CHAPTERS
         assert q.stem.strip()
         assert list(q.options) == ["A", "B", "C", "D"], q.options
         texts = list(q.options.values())
@@ -83,11 +95,10 @@ WRITTEN = [t for t in TEMPLATES if t.category == "written"]
 
 
 def test_written_inventory():
-    chapters = {t.chapter for t in WRITTEN}
-    assert chapters >= {6, 7, 8}
-    for ch in chapters:
-        assert Counter(t.level for t in WRITTEN if t.chapter == ch) == {1: 5, 2: 5, 3: 5, 4: 5, 5: 5}, f"chapter {ch}"
-    assert len(WRITTEN) == 25 * len(chapters)
+    for ch in CHAPTERS:
+        levels = Counter(t.level for t in WRITTEN if t.chapter == ch)
+        assert sum(levels.values()) >= MIN_PER_CHAPTER["written"], f"chapter {ch}: {sum(levels.values())} written"
+        assert set(levels) == {1, 2, 3, 4, 5}, f"chapter {ch} written levels {sorted(levels)}"
 
 
 def test_no_fill_in_the_blank_hints():

@@ -90,10 +90,28 @@ def written(id: str, chapter: int, level: int, lo: str, stem: str, points, model
 
 
 # ------------------------------------------------------------------ numbers
+_SUP = str.maketrans("0123456789-", "⁰¹²³⁴⁵⁶⁷⁸⁹⁻")
+
+
+def sci(x: float, sf: int = 3) -> str:
+    """Standard form with a real multiplication sign and superscript exponent, e.g. 4.5 × 10⁻⁹."""
+    if x == 0:
+        return "0"
+    e = int(math.floor(math.log10(abs(x))))
+    mant = float(f"{x / 10 ** e:.{sf}g}")
+    if abs(mant) >= 10:
+        mant, e = mant / 10, e + 1
+    ms = f"{mant:.6f}".rstrip("0").rstrip(".")
+    return f"{ms} × 10{str(e).translate(_SUP)}"
+
+
 def fmt(x, sf: Optional[int] = 3, dp: Optional[int] = None) -> str:
-    """Plain number string: no float noise, 3 s.f. by default, or fixed decimals with dp."""
+    """Plain number string: no float noise, 3 s.f. by default, or fixed decimals with dp.
+    Very small or very large magnitudes (below 10⁻⁴ or 10⁹ and above) are written in standard form so they never collapse to '0'."""
     if dp is not None:
         return f"{x:.{dp}f}"
+    if x != 0 and (abs(x) < 1e-4 or abs(x) >= 1e9):
+        return sci(x, sf or 3)
     if sf:
         x = float(f"{x:.{sf}g}")
     s = f"{x:.6f}".rstrip("0").rstrip(".")

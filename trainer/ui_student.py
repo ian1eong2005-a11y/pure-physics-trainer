@@ -121,8 +121,7 @@ def render_student(store, rec):
                                   format_func=lambda c: f"Ch {c} {CHAPTERS[c]}", key=f"chapters_ms_{cat}")
         missing = [c for c in CHAPTERS if c not in available]
         if missing:
-            st.caption("No " + CATEGORIES[cat].lower() + " questions for: " + ", ".join(f"Ch {c}" for c in missing)
-                       + (". Chapters 7 and 8 are descriptive in the syllabus; try them under Explanation." if cat == "calc" else "."))
+            st.caption("No " + CATEGORIES[cat].lower() + " questions yet for: " + ", ".join(f"Ch {c}" for c in missing) + ".")
     if not chapters:
         chapters = available
     if chapters != ss.get("chapters"):

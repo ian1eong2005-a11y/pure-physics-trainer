@@ -1,4 +1,4 @@
-"""G3 Science (Physics) adaptive trainer - Streamlit entry point.
+"""Pure Physics (6091) adaptive trainer - Streamlit entry point.
 
 Run locally:   streamlit run app.py
 Teacher view:  sidebar -> Teacher, or append ?teacher=1 to the URL.
@@ -50,7 +50,8 @@ if rec is None:
         ss.pop("qs", None)
         st.info("Your session was reset. Please log in again.")
     st.markdown(f"## ⚡ {APP_TITLE}")
-    st.markdown("Train yourself on Physics calculation and recall questions. Get **5 in a row** right to move up a level; **3 wrong in a row** moves you down one.")
+    st.markdown("Train yourself on O-Level Physics (6091): calculation, explanation and written-answer questions for all 20 topics. "
+                "Get **5 in a row** right to move up a level; **3 wrong in a row** moves you down one.")
     with st.form("login"):
         name = st.text_input("Your name", placeholder="e.g. Aisyah")
         options = [f"{grp} · {c}" for grp, cs in CLASSES.items() for c in cs]

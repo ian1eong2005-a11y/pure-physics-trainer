@@ -1,1 +1,1 @@
-"""G3 Science (Physics) adaptive trainer."""
+"""Pure Physics (6091) adaptive trainer."""
