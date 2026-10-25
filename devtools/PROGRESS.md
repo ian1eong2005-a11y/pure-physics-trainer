@@ -5,3 +5,4 @@ Push ONCE at the end (teacher, 25 Oct 2026). Commit locally after each chapter.
 - Ch 2 done (calc_ch2b, explain_ch2, written_ch2b)
 - Ch 3 done (calc_ch3x, explain_ch3, written_ch3x)
 - Ch 4: calc_ch4x (41), explain_ch4 (42), written_ch4x (25)
+- Ch 5: calc_ch5x (34), explain_ch5 (42), written_ch5x (33)
