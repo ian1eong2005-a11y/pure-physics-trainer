@@ -546,3 +546,105 @@ def forces_on_line(items, body="box"):
 def stopwatch_text(t):
     """mm:ss.hh display string for a time in seconds."""
     return f"{int(t // 60)}:{t - 60 * int(t // 60):05.2f}"
+
+
+def stability_shapes(items):
+    """Side views of objects for stability comparisons. items = [(name, base_width, height, cg_height)] in any consistent unit."""
+    fig, ax = _fig(1.9 * len(items) + 0.6, 3.0)
+    H = max(h for _, _, h, _ in items)
+    k = 2.2 / H
+    x = 0.0
+    for name, w, h, c in items:
+        wk, hk = w * k, h * k
+        ax.add_patch(Polygon([(x, 0), (x + wk, 0), (x + wk * 0.5 + 0.18, hk), (x + wk * 0.5 - 0.18, hk)] if w > 0.6 * h else [(x, 0), (x + wk, 0), (x + wk, hk), (x, hk)],
+                             closed=True, fc="#e6e6e6", ec="black", lw=1.5))
+        ax.plot([x + wk / 2], [c * k], "o", color="black", ms=5)
+        ax.text(x + wk / 2 + 0.08, c * k, "G", fontsize=9, va="bottom")
+        ax.text(x + wk / 2, -0.25, name, ha="center", va="top", fontsize=11, fontweight="bold")
+        x += max(wk, 0.8) + 0.9
+    ax.plot([-0.3, x - 0.6], [0, 0], color="black", lw=1.4)
+    ax.set_xlim(-0.4, x - 0.5)
+    ax.set_ylim(-0.7, 2.6)
+    return _png(fig)
+
+
+def tilt_block(w, h, angle_deg, label=None):
+    """A uniform block of base width w and height h tilted about its lower right corner by angle_deg; the vertical through G is drawn."""
+    import math as _m
+    fig, ax = _fig(3.8, 3.4)
+    k = 2.4 / max(w, h)
+    W, Hh = w * k, h * k
+    a = -_m.radians(angle_deg)
+    pivot = (2.0, 0.0)
+
+    def rot(px, py):
+        dx, dy = px - pivot[0], py - pivot[1]
+        return (pivot[0] + dx * _m.cos(a) - dy * _m.sin(a), pivot[1] + dx * _m.sin(a) + dy * _m.cos(a))
+    corners = [rot(pivot[0] - W, 0), rot(pivot[0], 0), rot(pivot[0], Hh), rot(pivot[0] - W, Hh)]
+    ax.add_patch(Polygon(corners, closed=True, fc="#e6e6e6", ec="black", lw=1.6))
+    g = rot(pivot[0] - W / 2, Hh / 2)
+    ax.plot([g[0]], [g[1]], "o", color="black", ms=5)
+    ax.text(g[0] - 0.12, g[1], "G", ha="right", va="center", fontsize=10)
+    ax.plot([g[0], g[0]], [g[1], -0.05], color="#c00000", lw=1.2, ls="--")
+    ax.plot([-0.5, 3.4], [0, 0], color="black", lw=1.4)
+    ax.plot([pivot[0]], [0], "^", color="black", ms=7)
+    if label:
+        ax.text(1.4, -0.35, label, ha="center", va="top", fontsize=9.5)
+    ax.set_xlim(-0.6, 3.6)
+    ax.set_ylim(-0.8, 3.1)
+    return _png(fig)
+
+
+def spanner_force(L, F_label, ang_deg, d_label):
+    """A spanner of length L from a nut, with a force at ang_deg to the spanner at its end; the line of action and the
+    perpendicular distance from the nut are drawn."""
+    fig, ax = _fig(4.6, 3.2)
+    k = 3.0 / L
+    end = (3.0, 0.0)
+    ax.add_patch(Circle((0, 0), 0.22, fc="#bbbbbb", ec="black", lw=1.4, zorder=4))
+    ax.text(0, -0.38, "nut", ha="center", va="top", fontsize=9.5)
+    ax.plot([0, end[0]], [0, 0], color="#555555", lw=7, solid_capstyle="round", zorder=3)
+    a = math.radians(180 - ang_deg)
+    ux, uy = math.cos(a), math.sin(a)
+    tip = (end[0] + 1.4 * ux, end[1] + 1.4 * uy)
+    ax.add_patch(FancyArrowPatch(end, tip, arrowstyle="-|>", mutation_scale=16, lw=2, color="black", zorder=5))
+    ax.text(tip[0] + 0.1, tip[1] + 0.05, F_label, ha="left", va="bottom", fontsize=10)
+    far = (end[0] + 3.2 * ux, end[1] + 3.2 * uy)
+    ax.plot([end[0], far[0]], [end[1], far[1]], color="black", lw=0.9, ls=":")
+    t = -(end[0] * ux + end[1] * uy)
+    foot = (end[0] + t * ux, end[1] + t * uy)
+    ax.plot([0, foot[0]], [0, foot[1]], color="#c00000", lw=1.3, ls="--")
+    ax.text(foot[0] / 2 - 0.12, foot[1] / 2 + 0.08, d_label, ha="right", va="bottom", fontsize=9.5, color="#c00000")
+    ax.add_patch(Arc(end, 0.8, 0.8, theta1=180 - ang_deg, theta2=180, lw=1))
+    ax.text(end[0] - 0.55, 0.12, f"{ang_deg}°", ha="right", va="bottom", fontsize=9.5)
+    ax.text(end[0] / 2, -0.25, f"{L:g} m", ha="center", va="top", fontsize=9.5)
+    xs = [0, end[0], tip[0], foot[0], far[0]]
+    ys = [0, tip[1], foot[1], far[1]]
+    ax.set_xlim(min(xs) - 0.7, max(xs) + 0.9)
+    ax.set_ylim(min(ys) - 0.7, max(ys) + 0.4)
+    return _png(fig)
+
+
+def ladder_wall(x_label, h_label, W_label="W"):
+    """A uniform ladder against a smooth wall: weight at its midpoint, horizontal wall force at the top, foot distance and height labelled."""
+    fig, ax = _fig(3.8, 3.8)
+    X0, H = 1.3, 2.8
+    ax.plot([X0 + 0.0, X0 + 0.0], [0, 3.2], color="black", lw=2)
+    for yy in np.arange(0.1, 3.2, 0.25):
+        ax.plot([X0, X0 + 0.15], [yy, yy + 0.15], color="black", lw=0.8)
+    ax.plot([-0.6, X0 + 0.2], [0, 0], color="black", lw=2)
+    ax.plot([0, X0], [0, H], color="#8b5a2b", lw=5, solid_capstyle="butt")
+    mx, my = X0 / 2, H / 2
+    ax.plot([mx], [my], "o", color="black", ms=5, zorder=5)
+    ax.add_patch(FancyArrowPatch((mx, my), (mx, my - 0.9), arrowstyle="-|>", mutation_scale=14, lw=1.8, color="black"))
+    ax.text(mx - 0.08, my - 0.9, W_label, ha="right", va="top", fontsize=10)
+    ax.add_patch(FancyArrowPatch((X0, H), (X0 - 0.8, H), arrowstyle="-|>", mutation_scale=14, lw=1.8, color="black"))
+    ax.text(X0 - 0.85, H + 0.08, "F", ha="right", va="bottom", fontsize=10)
+    ax.add_patch(FancyArrowPatch((0, -0.3), (X0, -0.3), arrowstyle="<|-|>", mutation_scale=10, lw=0.9, color="black"))
+    ax.text(X0 / 2, -0.38, x_label, ha="center", va="top", fontsize=9.5)
+    ax.add_patch(FancyArrowPatch((X0 + 0.45, 0), (X0 + 0.45, H), arrowstyle="<|-|>", mutation_scale=10, lw=0.9, color="black"))
+    ax.text(X0 + 0.55, H / 2, h_label, ha="left", va="center", fontsize=9.5)
+    ax.text(-0.05, 0.1, "foot", ha="right", va="bottom", fontsize=9)
+    ax.set_xlim(-0.9, X0 + 1.6)
+    ax.set_ylim(-0.8, 3.4)
+    return _png(fig)
