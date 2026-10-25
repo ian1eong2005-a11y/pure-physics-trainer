@@ -1,0 +1,478 @@
+"""Chapter 18 Electromagnetism written-answer bank extension: fills each level to at least 10 with every LO at least twice."""
+from .. import figs3
+from ..marker import Pitfall, Point
+from .base import written
+
+P = Point
+PF = Pitfall
+
+# ---------------------------------------------------------------- L1
+written("w18x_grip_rule_state", 18, 1, "18a",
+        stem="State the right-hand grip rule for the magnetic field around a current-carrying wire.",
+        points=[P("grip the wire with the right hand, thumb pointing along the (conventional) current", ["thumb", "along the current", "in the direction of the current", "right hand"]),
+                P("the curled fingers show the direction of the magnetic field", ["fingers", "curl", "direction of the field", "field lines"])],
+        model_answer="Grip the wire with the right hand so that the thumb points along the conventional current; the curled fingers then show the direction of the magnetic field lines around the wire.",
+        hints=["Which hand?", "What does the thumb show?", "What do the fingers show?"],
+        keywords="right hand; thumb along current; fingers show field",
+        sample_pass=["Grip the wire with your right hand with the thumb along the current; the fingers curl in the direction of the field", "right hand, thumb in the direction of the current, fingers show the field lines"],
+        sample_fail=["Use the left hand with the thumb as force", "The field points along the wire"])
+
+written("w18x_electromagnet_parts", 18, 1, "18b",
+        stem="Describe the parts of a simple electromagnet and state how it can be switched off.",
+        points=[P("a coil of insulated wire (solenoid)", ["coil", "solenoid", "wire wrapped"]),
+                P("wound on a soft iron core", ["soft iron", "iron core", "core"]),
+                P("switched off by switching off the current", ["switch off the current", "stop the current", "switch off", "turn off the current", "break the circuit"])],
+        min_points=2,
+        model_answer="An electromagnet is a coil of insulated wire wound around a soft iron core. It is switched off by switching off the current in the coil.",
+        hints=["What is wound round what?", "What is the core made of?", "How is it turned off?"],
+        keywords="coil; soft iron core; switch off the current",
+        sample_pass=["A coil of wire around a soft iron core; switch off the current to turn it off", "a solenoid wound on an iron core, which stops being magnetic when the current is switched off"],
+        sample_fail=["A steel bar magnet", "A coil with no current"])
+
+written("w18x_force_factors_l1", 18, 1, "18c",
+        stem="State two ways of increasing the force on a current-carrying wire in a magnetic field.",
+        points=[P("increase the current", ["increase the current", "larger current", "more current", "bigger current"]),
+                P("use a stronger magnet / longer length of wire in the field", ["stronger magnet", "stronger field", "longer", "more wire"])],
+        model_answer="Increase the current, and use a stronger magnet (or a longer length of wire in the field).",
+        hints=["What does the force depend on?", "Current…", "…and field strength."],
+        keywords="more current; stronger magnet; longer wire",
+        sample_pass=["Increase the current and use a stronger magnet", "a larger current and a longer wire in the field"],
+        sample_fail=["Reverse the current", "Make the wire parallel to the field"])
+
+written("w18x_force_direction_l1", 18, 1, "18c",
+        stem="State two ways of reversing the direction of the force on a current-carrying wire in a magnetic field.",
+        points=[P("reverse the current", ["reverse the current", "current reversed", "change the direction of the current", "swap the battery"]),
+                P("reverse the magnetic field (swap the poles)", ["reverse the field", "reverse the magnet", "swap the poles", "turn the magnet round"])],
+        pitfalls=[PF(["reverse both", "both the current and the field"], "Reversing both the current and the field leaves the force unchanged: reverse only one.")],
+        model_answer="Reverse the direction of the current, or reverse the magnetic field by swapping the poles of the magnet.",
+        hints=["What two things decide the force direction?", "Current and field.", "Reverse one of them."],
+        keywords="reverse current; reverse field",
+        sample_pass=["Reverse the current or reverse the magnetic field", "swap the battery round or turn the magnet round"],
+        sample_fail=["Increase the current", "Reverse both the current and the field"])
+
+written("w18x_lhr_state_l1", 18, 1, "18d",
+        stem="State what each finger and the thumb represent in Fleming's left-hand rule.",
+        points=[P("first finger: magnetic field", ["first finger", "field", "forefinger"]),
+                P("second finger: current", ["second finger", "current", "middle finger"]),
+                P("thumb: force (motion)", ["thumb", "force", "motion"])],
+        min_points=3,
+        model_answer="First finger: magnetic field (N to S). Second finger: conventional current. Thumb: force (motion).",
+        hints=["First = Field.", "seCond = Current.", "thuMb = Motion."],
+        keywords="first finger field; second current; thumb force",
+        sample_pass=["First finger is the field, second finger the current and the thumb the force", "forefinger field, middle finger current, thumb motion"],
+        sample_fail=["Thumb is the current", "First finger is the force"])
+
+written("w18x_lhr_use_l1", 18, 1, "18d",
+        stem="State what Fleming's left-hand rule is used to find, and in which kind of device it is useful.",
+        points=[P("the direction of the force on a current-carrying conductor in a magnetic field", ["direction of the force", "force on a current", "force on a wire", "motion"]),
+                P("useful for electric motors", ["motor"])],
+        model_answer="It gives the direction of the force (motion) on a current-carrying conductor in a magnetic field; it is used for electric motors.",
+        hints=["What does it predict?", "A force direction.", "Which device uses this effect?"],
+        keywords="direction of force on a current in a field; motors",
+        sample_pass=["It finds the direction of the force on a current-carrying wire in a magnetic field, used in motors", "the direction of motion of a wire in a field; electric motors"],
+        sample_fail=["The direction of the field round a wire", "The voltage of a generator"])
+
+written("w18x_motor_energy_l1", 18, 1, "18e",
+        stem="State the energy change in an electric motor and give one everyday use of a motor.",
+        points=[P("electrical energy to kinetic energy", ["electrical", "kinetic"]),
+                P("use: e.g. fan, washing machine, drill, electric car", ["fan", "washing machine", "drill", "car", "lift", "blender", "toy"])],
+        model_answer="A motor converts electrical energy into kinetic energy; it is used in an electric fan (also drills and washing machines).",
+        hints=["What goes in?", "What comes out?", "Name a device that spins."],
+        keywords="electrical → kinetic; fan",
+        sample_pass=["Electrical energy to kinetic energy, used in a fan", "it changes electrical to kinetic energy, for example in a washing machine"],
+        sample_fail=["Kinetic to electrical, in a generator", "Heat to light"])
+
+written("w18x_motor_faster_l1", 18, 1, "18e",
+        stem="State two ways of making a simple d.c. motor turn faster.",
+        points=[P("increase the current", ["increase the current", "larger current", "more current", "higher voltage"]),
+                P("use more turns on the coil / a stronger magnet", ["more turns", "stronger magnet", "stronger field"])],
+        model_answer="Increase the current, and use more turns on the coil or a stronger magnet.",
+        hints=["What gives a bigger turning effect?", "Current, turns, field.", "Two ways."],
+        keywords="more current; more turns; stronger magnet",
+        sample_pass=["Increase the current and use a stronger magnet", "more turns on the coil and a larger current"],
+        sample_fail=["Reverse the battery", "Remove the commutator"])
+
+# ---------------------------------------------------------------- L2
+written("w18x_wire_field_change", 18, 2, "18a",
+        stem="Describe how the magnetic field around a straight wire changes when (a) the current is increased and (b) the current is reversed.",
+        points=[P("(a) the field becomes stronger (lines closer together)", ["stronger", "closer together", "stronger field", "increases"]),
+                P("(b) the field direction reverses", ["reverses", "opposite direction", "direction changes", "reversed"])],
+        model_answer="(a) A larger current gives a stronger field (field lines drawn closer together). (b) Reversing the current reverses the direction of the field.",
+        hints=["How does field strength depend on current?", "What sets the field direction?", "Both changes."],
+        keywords="stronger with more current; reverses with current",
+        sample_pass=["(a) the field gets stronger (b) the field reverses direction", "a larger current gives a stronger field and reversing it reverses the field"],
+        sample_fail=["The field disappears", "The field becomes radial"])
+
+written("w18x_lhr_apply_l2", 18, 2, "18d",
+        stem="Fig. 1 shows a wire between magnet poles carrying a current into the page. Explain how you would use Fleming's left-hand rule to find the direction of the force.",
+        points=[P("point the first finger along the field, from N to S", ["first finger", "n to s", "forefinger"]),
+                P("point the second finger along the current (into the page)", ["second finger", "current", "into the page"]),
+                P("the thumb then points in the direction of the force", ["thumb", "force", "motion"])],
+        pitfalls=[PF(["right hand"], "Fleming's rule for the force on a current uses the LEFT hand.")],
+        min_points=2,
+        model_answer="Hold the left hand with the first finger pointing along the field from N to S and the second finger pointing along the current into the page; the thumb then points in the direction of the force on the wire.",
+        hints=["Which hand?", "Line up the first two fingers.", "Read the thumb."],
+        keywords="first finger field N→S; second finger current; thumb force",
+        sample_pass=["Point the first finger from N to S along the field and the second finger along the current into the page; the thumb gives the force", "left hand: first finger field, second finger current, thumb shows the force"],
+        sample_fail=["Use the right hand and point the thumb at the current", "The force is along the field"],
+        figure=lambda: figs3.flemings_lhr(field="right", current="into"))
+
+written("w18x_relay_explain", 18, 2, "18b",
+        stem="Explain how a relay lets a small current switch on a large current.",
+        points=[P("the small current flows through the relay coil, making it an electromagnet", ["coil", "electromagnet", "magnetised"]),
+                P("the electromagnet attracts an iron armature", ["attracts", "armature", "pulls"]),
+                P("which closes the contacts of a second circuit carrying the large current", ["closes", "contacts", "second circuit", "switch"])],
+        min_points=2,
+        model_answer="The small current flows through the relay's coil, which becomes an electromagnet. It attracts a soft iron armature, which closes a pair of contacts in a second circuit, switching on the large current.",
+        hints=["What does the small current do to the coil?", "What does the electromagnet attract?", "What does that close?"],
+        keywords="coil → electromagnet; attracts armature; closes contacts",
+        sample_pass=["The small current magnetises the coil, which attracts the armature and closes the contacts of the second circuit", "the electromagnet pulls the armature, switching on the high-current circuit"],
+        sample_fail=["The relay increases the voltage", "The relay stores charge"])
+
+written("w18x_relay_why_used", 18, 2, "18b",
+        stem="Give two reasons for using a relay to switch on a powerful motor.",
+        points=[P("a small current/low voltage circuit can control a large current/high voltage circuit", ["small current", "low voltage", "controls a large", "large current"]),
+                P("the user is kept safe / isolated from the high-current circuit", ["safe", "safer", "isolated", "separate", "away from"]),
+                P("thin wires and a small switch can be used in the control circuit", ["thin wires", "small switch", "cheaper"])],
+        min_points=2,
+        model_answer="A relay lets a low-voltage, small-current circuit control the high-current motor circuit, so the user is isolated from the dangerous circuit, and thin wires and a small switch can be used for the control circuit.",
+        hints=["What does the relay let a small current do?", "Is the user safer?", "Any other benefit?"],
+        keywords="small controls large; safety/isolation; thin wires",
+        sample_pass=["A small current can control the large current, and the user is isolated from the high-current circuit", "it is safer and lets a low voltage switch control a large current"],
+        sample_fail=["It makes the motor faster", "It reverses the motor"])
+
+written("w18x_force_explain_l2", 18, 2, "18c",
+        stem="Explain why a current-carrying wire placed at right angles to a magnetic field experiences a force.",
+        points=[P("the current produces its own magnetic field around the wire", ["own magnetic field", "own field", "field around the wire", "produces a field"]),
+                P("this field interacts with the magnet's field, giving a force", ["interacts", "combine", "two fields", "magnet's field"])],
+        model_answer="The current in the wire produces its own circular magnetic field. This interacts with the field of the magnet, and the combined field pushes the wire sideways with a force.",
+        hints=["Does a current have a field?", "What does it interact with?", "Result?"],
+        keywords="wire's own field; interacts with magnet's field",
+        sample_pass=["The current makes its own magnetic field, which interacts with the magnet's field to give a force", "the current's own field and the magnet's field combine and push the wire"],
+        sample_fail=["The magnet attracts the copper", "The wire gets hot"])
+
+written("w18x_force_size_change", 18, 2, "18c",
+        stem="The force on a wire in a magnetic field is 0.05 N. Describe how the force changes if (a) the current is doubled, (b) the wire is turned to lie parallel to the field.",
+        points=[P("(a) the force doubles to 0.10 N", ["0.10", "doubles", "0.1 n", "twice"]),
+                P("(b) the force becomes zero", ["zero", "no force", "0 n"])],
+        model_answer="(a) The force is proportional to the current, so it doubles to 0.10 N. (b) A wire parallel to the field experiences no force, so it becomes zero.",
+        hints=["F ∝ I.", "What happens when parallel?", "Zero force."],
+        keywords="doubles to 0.10 N; zero when parallel",
+        sample_pass=["(a) it doubles to 0.10 N (b) it becomes zero", "twice as big, and no force when parallel"],
+        sample_fail=["(a) it halves", "(b) it doubles"])
+
+written("w18x_commutator_l2", 18, 2, "18f",
+        stem="State the purpose of the split-ring commutator in a d.c. motor.",
+        points=[P("it reverses the current in the coil every half turn", ["reverses the current", "reverses the direction of the current", "half turn", "every half"]),
+                P("so the coil keeps turning in the same direction", ["same direction", "keeps turning", "continues to rotate", "one direction"])],
+        model_answer="It reverses the direction of the current in the coil every half turn, so the coil keeps turning in the same direction.",
+        hints=["What does it reverse?", "How often?", "Why?"],
+        keywords="reverses current every half turn; continuous rotation",
+        sample_pass=["It reverses the current every half turn so the coil keeps turning the same way", "reverses the current in the coil so it continues to rotate in one direction"],
+        sample_fail=["It provides the magnetic field", "It slows the motor"])
+
+written("w18x_brushes_l2", 18, 2, "18f",
+        stem="State the purpose of the carbon brushes in a d.c. motor and why they are made of carbon.",
+        points=[P("they make electrical contact with the rotating commutator", ["contact", "connect", "commutator"]),
+                P("carbon conducts and is soft/slippery, so it wears without damaging the commutator", ["conducts", "slippery", "soft", "wears", "low friction"])],
+        model_answer="The brushes make sliding electrical contact between the supply and the rotating commutator. Carbon conducts electricity and is soft and slippery, so it reduces friction and wears away instead of damaging the commutator.",
+        hints=["What do the brushes touch?", "Why must they slide easily?", "Why carbon?"],
+        keywords="sliding contact with commutator; carbon conducts, slippery",
+        sample_pass=["They make contact with the commutator; carbon conducts and is slippery", "brushes connect the supply to the rotating commutator and carbon is soft so it wears instead"],
+        sample_fail=["They reverse the current", "They provide the magnetic field"])
+
+# ---------------------------------------------------------------- L3
+written("w18x_breaker_l3", 18, 3, "18b",
+        stem="Explain how an electromagnetic circuit breaker protects a circuit.",
+        points=[P("the current flows through an electromagnet in the breaker", ["electromagnet", "coil"]),
+                P("if the current is too large, the electromagnet becomes strong enough to attract an iron catch/armature", ["too large", "strong enough", "attracts", "armature", "pulls"]),
+                P("this opens a switch, cutting off the current; it can be reset", ["opens", "switch", "cuts off", "breaks the circuit", "reset"])],
+        min_points=2,
+        model_answer="The circuit current passes through an electromagnet in the breaker. If the current becomes too large, the electromagnet becomes strong enough to attract an iron armature, which releases a spring-loaded switch and opens the circuit. The breaker can then be reset.",
+        hints=["What does the current pass through?", "What happens if it is too large?", "What does that do to the circuit?"],
+        keywords="electromagnet; too large current attracts armature; opens switch",
+        sample_pass=["The current flows through an electromagnet; if it is too large the electromagnet attracts the armature and opens the switch", "a large current makes the electromagnet strong enough to pull the catch and cut off the current"],
+        sample_fail=["A wire melts", "It reduces the voltage"])
+
+written("w18x_force_balance_l3", 18, 3, "18c",
+        stem="A wire is held between the poles of a magnet resting on a balance. When a current flows, the balance reading increases. Explain why.",
+        points=[P("the wire experiences a force (motor effect) upwards", ["force on the wire", "upwards", "motor effect", "force"]),
+                P("by Newton's third law, an equal and opposite force acts down on the magnet", ["third law", "equal and opposite", "downward force on the magnet", "magnet is pushed down"]),
+                P("so the balance reading increases", ["reading increases", "heavier", "increases"])],
+        min_points=2,
+        model_answer="The current-carrying wire experiences an upward force from the magnetic field. By Newton's third law, an equal and opposite force pushes down on the magnet, so the balance reading increases.",
+        hints=["What force acts on the wire?", "What acts on the magnet?", "Third law."],
+        keywords="force on wire up; equal opposite force on magnet down",
+        sample_pass=["The wire is pushed up, so by Newton's third law the magnet is pushed down with an equal and opposite force and the reading increases", "an upward force on the wire gives an equal and opposite downward force on the magnet"],
+        sample_fail=["The wire gets heavier", "The current adds mass"])
+
+written("w18x_solenoid_poles_l3", 18, 3, "18a",
+        stem="Explain how to find which end of a current-carrying solenoid is the N pole.",
+        points=[P("use the right-hand grip rule for the coil: fingers along the current in the turns", ["right-hand grip", "fingers", "curl", "current in the turns"]),
+                P("the thumb points to the N pole", ["thumb points to the n", "thumb", "n pole"]),
+                P("or: looking at an end, anticlockwise current means N, clockwise means S", ["anticlockwise", "clockwise", "end rule"])],
+        min_points=2,
+        model_answer="Grip the solenoid with the right hand so that the fingers curl in the direction of the current in the turns; the thumb then points to the N pole. Alternatively, look at one end: if the current flows anticlockwise, that end is N; clockwise, it is S.",
+        hints=["Use a right-hand rule for the coil.", "What does the thumb show?", "Or use the end rule."],
+        keywords="right-hand grip on coil: thumb → N; end rule",
+        sample_pass=["Curl the fingers of the right hand along the current; the thumb points to the N pole", "use the right-hand grip rule; seen from an end, anticlockwise current is N and clockwise is S"],
+        sample_fail=["The N pole is always on the left", "Use the left-hand rule"])
+
+written("w18x_solenoid_field_l3", 18, 3, "18a",
+        stem="Describe the magnetic field inside and outside a long solenoid carrying a current.",
+        points=[P("inside: strong and uniform, with parallel field lines along the axis", ["uniform", "parallel", "strong", "along the axis"]),
+                P("outside: like the field of a bar magnet, with N and S poles at the ends", ["bar magnet", "bar-magnet", "poles at the ends", "n and s"])],
+        model_answer="Inside the solenoid the field is strong and nearly uniform, with parallel lines along its axis. Outside, the field is like that of a bar magnet, with N and S poles at the two ends.",
+        hints=["What are the lines like inside?", "What does the outside field look like?", "Compare with a magnet."],
+        keywords="inside uniform; outside like bar magnet",
+        sample_pass=["Inside it is uniform with parallel lines; outside it is like a bar magnet with poles at the ends", "a strong uniform field inside, a bar-magnet pattern outside"],
+        sample_fail=["Circles around the solenoid", "No field inside"])
+
+written("w18x_lhr_beam_l3", 18, 3, "18d",
+        stem="Explain how to use Fleming's left-hand rule to find the deflection of a beam of electrons moving through a magnetic field.",
+        points=[P("electrons are negative, so conventional current is opposite to their direction of motion", ["opposite", "negative", "conventional current"]),
+                P("point the second finger along the conventional current and the first finger along the field", ["second finger", "first finger", "field"]),
+                P("the thumb gives the direction of the force on the beam", ["thumb", "force", "deflection"])],
+        min_points=2,
+        model_answer="Electrons are negative, so the conventional current is in the opposite direction to their motion. Point the first finger along the field (N to S) and the second finger along this conventional current; the thumb gives the direction of the force, and so of the deflection.",
+        hints=["Which way is conventional current for electrons?", "Line up the fingers.", "Read the thumb."],
+        keywords="conventional current opposite to electrons; LHR",
+        sample_pass=["Conventional current is opposite to the electrons; point the second finger that way, the first finger along the field, and the thumb gives the force", "the current is opposite to the electron motion, then use the left hand and the thumb gives the force"],
+        sample_fail=["Point the second finger along the electrons", "Use the right hand"])
+
+written("w18x_lhr_reverse_l3", 18, 3, "18d",
+        stem="Using Fleming's left-hand rule, explain what happens to the force on a wire if both the current and the field are reversed.",
+        points=[P("reversing one of them reverses the force", ["reverses the force", "one reversal", "reversing one"]),
+                P("reversing both reverses it twice, so the force direction is unchanged", ["unchanged", "same direction", "twice", "no change"])],
+        model_answer="Reversing either the current or the field reverses the force. Reversing both reverses it twice, so the force acts in the same direction as before.",
+        hints=["What does one reversal do?", "And a second?", "Net effect?"],
+        keywords="one reversal reverses force; both → unchanged",
+        sample_pass=["Reversing one reverses the force, so reversing both leaves the force unchanged", "it reverses twice, so the force is in the same direction"],
+        sample_fail=["The force reverses", "The force becomes zero"])
+
+written("w18x_motor_coil_l3", 18, 3, "18e",
+        stem="Explain why the coil of a d.c. motor turns when a current flows through it.",
+        points=[P("the two sides of the coil carry current in opposite directions", ["opposite directions", "opposite"]),
+                P("in the field, the sides experience forces in opposite directions (one up, one down)", ["forces in opposite", "one up", "one side up", "opposite forces"]),
+                P("these forces produce a turning effect (moment) about the axis", ["turning effect", "moment", "turns", "rotate", "couple"])],
+        min_points=2,
+        model_answer="The current flows in opposite directions along the two sides of the coil, so in the magnetic field the two sides experience forces in opposite directions, one up and one down. These forces produce a turning effect about the axis, so the coil rotates.",
+        hints=["Compare the currents in the two sides.", "What forces result?", "What do they do to the coil?"],
+        keywords="opposite currents → opposite forces → turning effect",
+        sample_pass=["The two sides carry current in opposite directions, so the forces are opposite and give a turning effect", "one side is pushed up and the other down, so the coil rotates"],
+        sample_fail=["The magnet attracts the coil", "The coil is pushed in one direction"],
+        figure=lambda: figs3.motor_diagram())
+
+written("w18x_motor_compare_l3", 18, 3, "18e",
+        stem="Explain how increasing the number of turns on the coil affects a d.c. motor.",
+        points=[P("each turn experiences the force, so the total force/turning effect increases", ["each turn", "more force", "larger turning effect", "greater turning effect", "forces add"]),
+                P("so the motor turns faster or can lift a heavier load", ["faster", "heavier load", "more powerful", "stronger"])],
+        model_answer="Each turn of the coil experiences a force, so more turns give a larger total force and turning effect. The motor turns faster or can turn a heavier load.",
+        hints=["Does each turn feel a force?", "What happens to the total?", "Effect on the motor?"],
+        keywords="more turns → larger turning effect → faster",
+        sample_pass=["Each turn feels a force so the turning effect increases and the motor turns faster", "more turns give a larger turning effect, so it is more powerful"],
+        sample_fail=["It turns more slowly", "It reverses the motor"])
+
+# ---------------------------------------------------------------- L4
+written("w18x_motor_vertical_l4", 18, 4, "18e",
+        stem="Explain why the turning effect on a motor coil is greatest when the coil is horizontal and zero when it is vertical.",
+        points=[P("the forces on the sides are always vertical (up and down)", ["vertical", "up and down"]),
+                P("when horizontal, the forces are furthest from the axis (largest perpendicular distance → largest moment)", ["furthest", "largest perpendicular distance", "largest moment", "maximum"]),
+                P("when vertical, the forces act through the axis, so the moment is zero", ["through the axis", "zero moment", "no perpendicular distance", "no turning effect"])],
+        min_points=2,
+        model_answer="The forces on the coil sides are always vertical. When the coil is horizontal, these forces are furthest from the axis, giving the largest perpendicular distance and so the largest moment. When it is vertical, the forces act through the axis, so the perpendicular distance and the moment are zero.",
+        hints=["Which way do the forces act?", "How far are they from the axis in each position?", "Moment = F × d."],
+        keywords="forces vertical; horizontal: max d; vertical: through axis",
+        sample_pass=["The forces are vertical; horizontal gives the largest perpendicular distance and moment, vertical gives forces through the axis and zero moment", "when vertical the forces pass through the axis so there is no turning effect"],
+        sample_fail=["The current is zero when vertical", "The magnet is weaker at the top"])
+
+written("w18x_commutator_l4", 18, 4, "18f",
+        stem="Explain what would happen to a simple motor coil if the split-ring commutator were replaced by two complete rings.",
+        points=[P("the current in the coil would not reverse", ["would not reverse", "not reverse", "stays the same direction", "never reverses"]),
+                P("after passing the vertical, the forces would turn the coil back", ["turn back", "oppose", "reverse its rotation", "pull it back"]),
+                P("so the coil would oscillate and stop in the vertical position", ["stop", "oscillate", "rock", "vertical position"])],
+        min_points=2,
+        model_answer="The current in the coil would never reverse. After the coil passes the vertical position, the forces would act to turn it back, so it would rock back and forth and come to rest in the vertical position.",
+        hints=["Would the current reverse?", "What would the forces do after vertical?", "Final state?"],
+        keywords="no reversal; forces turn coil back; stops vertical",
+        sample_pass=["The current would not reverse, so after the vertical position the forces turn it back and it stops vertical", "it would rock and stop because the current never reverses"],
+        sample_fail=["It would spin faster", "Nothing changes"])
+
+written("w18x_bell_l4", 18, 4, "18b",
+        stem="Explain how an electric bell works.",
+        points=[P("current flows through the electromagnet, which attracts the iron armature and the hammer strikes the gong", ["electromagnet", "attracts", "armature", "hammer", "strikes"]),
+                P("moving the armature breaks the circuit at the contact screw, so the electromagnet switches off", ["breaks the circuit", "contact", "switches off", "circuit is broken"]),
+                P("a spring pulls the armature back, remaking the circuit, and the cycle repeats", ["spring", "back", "remakes", "repeats", "again"])],
+        min_points=2,
+        model_answer="When the switch is pressed, current flows through the electromagnet, which attracts the iron armature so the hammer strikes the gong. This movement breaks the circuit at the contact, the electromagnet switches off and a spring pulls the armature back, remaking the circuit; the cycle repeats rapidly.",
+        hints=["What does the electromagnet attract?", "What happens to the circuit then?", "What brings it back?"],
+        keywords="electromagnet attracts armature; circuit broken; spring returns; repeats",
+        sample_pass=["The electromagnet attracts the armature so the hammer hits the gong; this breaks the circuit, the spring pulls it back and it repeats", "the circuit is broken each time the hammer moves, so it vibrates"],
+        sample_fail=["The gong produces the current", "A permanent magnet hits the gong"])
+
+written("w18x_breaker_vs_fuse_l4", 18, 4, "18b",
+        stem="Compare an electromagnetic circuit breaker with a fuse.",
+        points=[P("both cut off the current when it is too large", ["both", "cut off", "too large"]),
+                P("a breaker uses an electromagnet to open a switch; a fuse wire melts", ["electromagnet", "melts", "switch"]),
+                P("a breaker can be reset and acts faster; a fuse must be replaced", ["reset", "faster", "replaced"])],
+        min_points=2,
+        model_answer="Both cut off the current when it becomes too large. A circuit breaker uses an electromagnet to open a switch, while a fuse has a wire that melts. A breaker acts faster and can simply be reset, whereas a blown fuse must be replaced.",
+        hints=["What do both do?", "How does each work?", "What happens afterwards?"],
+        keywords="both cut off; electromagnet vs melting wire; reset vs replace",
+        sample_pass=["Both cut off a large current; a breaker uses an electromagnet and can be reset, but a fuse melts and must be replaced", "a fuse wire melts while a breaker trips and is reset"],
+        sample_fail=["A fuse can be reset", "A breaker melts"])
+
+written("w18x_force_reasons_l4", 18, 4, "18c",
+        stem="A loudspeaker coil sits in a magnetic field. Explain how an alternating current in the coil makes the cone vibrate.",
+        points=[P("the current in the coil in the magnetic field produces a force on the coil", ["force on the coil", "force", "motor effect"]),
+                P("the alternating current keeps reversing, so the force keeps reversing", ["reverses", "reversing", "alternating", "changes direction"]),
+                P("so the coil and cone move back and forth (vibrate), producing sound", ["back and forth", "vibrate", "sound"])],
+        min_points=2,
+        model_answer="The current in the coil, which lies in the magnet's field, produces a force on the coil. Because the current is alternating, it keeps reversing, so the force keeps reversing direction. The coil and the attached cone move back and forth, producing sound waves.",
+        hints=["Why is there a force on the coil?", "What does a.c. do to the force?", "Effect on the cone?"],
+        keywords="force on coil; a.c. reverses force; vibration → sound",
+        sample_pass=["The coil feels a force in the field; the a.c. keeps reversing so the force reverses and the cone vibrates", "the motor effect pushes the coil back and forth as the current reverses, making sound"],
+        sample_fail=["The magnet vibrates by itself", "The coil heats the air"])
+
+written("w18x_force_largest_l4", 18, 4, "18c",
+        stem="Explain why the force on a current-carrying wire is largest when it is at right angles to the magnetic field and zero when it is parallel to it.",
+        points=[P("at right angles, the wire's field interacts most strongly with the magnet's field", ["right angles", "perpendicular"]),
+                P("parallel to the field, there is no force (the current has no component across the field)", ["parallel", "no force", "zero"])],
+        model_answer="The force depends on how much of the current crosses the field. At right angles, all of the current cuts across the field lines, so the force is largest. When the wire is parallel, the current runs along the field lines and there is no force.",
+        hints=["How does the current lie relative to the field?", "Right angles: crosses fully.", "Parallel: does not cross."],
+        keywords="right angles → max; parallel → zero",
+        sample_pass=["At right angles the current crosses the field fully so the force is largest; parallel to the field there is no force", "maximum at right angles and zero when parallel"],
+        sample_fail=["The force is the same at all angles", "Largest when parallel"])
+
+written("w18x_grip_two_wires_l4", 18, 4, "18a",
+        stem="Two long parallel wires carry currents in the same direction. Use the right-hand grip rule to explain the field between them.",
+        points=[P("each wire has circular field lines (right-hand grip)", ["circular", "circles", "right-hand grip"]),
+                P("between the wires, the two fields point in opposite directions", ["opposite directions", "opposite"]),
+                P("so they partly cancel, giving a weak field (zero midway if equal)", ["cancel", "weaker", "zero midway", "weak field"])],
+        min_points=2,
+        model_answer="Each wire has circular field lines given by the right-hand grip rule. Between the wires, the two fields point in opposite directions, so they partly cancel; midway between equal currents the field is zero.",
+        hints=["What does each wire's field look like?", "Compare the directions between the wires.", "Result?"],
+        keywords="circular fields; opposite between wires; cancel",
+        sample_pass=["Each has circular field lines; between them the fields are opposite, so they cancel", "the fields between the wires point in opposite directions and partly cancel"],
+        sample_fail=["The fields add up between them", "There is no field around wires"])
+
+written("w18x_solenoid_strength_l4", 18, 4, "18a",
+        stem="State and explain three ways of making the magnetic field of a solenoid stronger.",
+        points=[P("increase the current", ["increase the current", "more current", "larger current"]),
+                P("increase the number of turns (per metre)", ["more turns", "number of turns", "turns per metre"]),
+                P("put a soft iron core inside", ["iron core", "soft iron"])],
+        min_points=3,
+        model_answer="Increase the current, increase the number of turns per metre, and put a soft iron core inside the solenoid; each makes the magnetic field stronger.",
+        hints=["What about the current?", "The turns?", "The core?"],
+        keywords="current; turns; iron core",
+        sample_pass=["Increase the current, use more turns and add a soft iron core", "more current, more turns per metre and an iron core"],
+        sample_fail=["Reverse the current", "Use a copper core"])
+
+# ---------------------------------------------------------------- L5
+written("w18x_eval_motor_design", 18, 5, "18e",
+        stem="A student builds a model motor that turns slowly. Evaluate three changes they could make to improve it.",
+        points=[P("increase the current (higher voltage supply)", ["increase the current", "more current", "higher voltage"]),
+                P("use more turns on the coil", ["more turns"]),
+                P("use a stronger magnet / put a soft iron core in the coil", ["stronger magnet", "iron core", "stronger field"])],
+        min_points=3,
+        model_answer="Increasing the current (with a higher-voltage supply) increases the force on each side of the coil. Using more turns increases the total force. Using a stronger magnet, or putting a soft iron core in the coil, strengthens the field. Each increases the turning effect, so the motor turns faster.",
+        hints=["What does the turning effect depend on?", "Current, turns, field.", "Explain each change."],
+        keywords="more current; more turns; stronger field/iron core",
+        sample_pass=["Increase the current, use more turns on the coil and use a stronger magnet", "add more turns, a stronger magnet and a higher voltage to increase the current"],
+        sample_fail=["Reverse the battery", "Use fewer turns"])
+
+written("w18x_eval_motor_reverse_written", 18, 5, "18e",
+        stem="A student says that to reverse a motor you must reverse both the current and the magnet. Evaluate this statement.",
+        points=[P("the statement is wrong", ["wrong", "incorrect", "not true", "false"]),
+                P("reversing either the current or the field reverses the rotation", ["either", "one of them", "reversing the current", "reversing the field"]),
+                P("reversing both leaves the rotation unchanged", ["both", "unchanged", "same direction", "cancel"])],
+        min_points=2,
+        model_answer="The statement is wrong. Reversing either the current or the magnetic field reverses the forces on the coil and so the direction of rotation. Reversing both reverses the forces twice, leaving the rotation unchanged.",
+        hints=["What does reversing one do?", "And both?", "So is the student right?"],
+        keywords="wrong; reverse one → reverses; both → unchanged",
+        sample_pass=["Wrong, reversing either the current or the field reverses the motor, but reversing both leaves it unchanged", "incorrect: only one of them needs to be reversed; both cancel"],
+        sample_fail=["Correct, both must be reversed", "The motor cannot be reversed"])
+
+written("w18x_eval_force_wire_claim", 18, 5, "18c",
+        stem="A student says: 'A current-carrying wire in a magnetic field always experiences a force.' Evaluate this statement.",
+        points=[P("the statement is not always true", ["not always", "wrong", "incorrect", "not true"]),
+                P("if the wire is parallel to the field, there is no force", ["parallel", "no force", "zero"]),
+                P("the force is largest at right angles to the field", ["right angles", "largest", "maximum"])],
+        min_points=2,
+        model_answer="The statement is not always true. If the wire lies parallel to the magnetic field, there is no force. The force is largest when the wire is at right angles to the field.",
+        hints=["Does the angle matter?", "What happens when parallel?", "When is the force largest?"],
+        keywords="not always; parallel → no force; max at right angles",
+        sample_pass=["Not always: a wire parallel to the field feels no force; it is largest at right angles", "wrong, there is zero force when the wire is parallel to the field"],
+        sample_fail=["Correct, there is always a force", "The force is always the same"])
+
+written("w18x_eval_grip_compass", 18, 5, "18a",
+        stem="A student places a plotting compass under a wire running north–south and switches on a large current. Evaluate what happens to the compass and why.",
+        points=[P("the compass needle turns (deflects) away from north", ["turns", "deflects", "moves"]),
+                P("the current produces a circular magnetic field around the wire (right-hand grip rule)", ["circular", "field around the wire", "right-hand grip", "magnetic field"]),
+                P("this field is at right angles to the wire, so the needle turns towards east or west", ["east", "west", "right angles", "across"])],
+        min_points=2,
+        model_answer="The compass needle is deflected. The current produces a circular magnetic field round the wire (direction from the right-hand grip rule). Under the wire this field is at right angles to the north–south wire, so the needle turns towards east or west.",
+        hints=["Does the current make a field?", "What shape is it?", "Which way does it point under the wire?"],
+        keywords="needle deflects; circular field; across the wire (E/W)",
+        sample_pass=["The needle deflects because the current makes a circular magnetic field that points east or west under the wire", "it turns towards east or west due to the field around the wire"],
+        sample_fail=["Nothing happens", "The needle always points north"])
+
+written("w18x_eval_solenoid_core_written", 18, 5, "18a",
+        stem="A student puts a steel rod instead of soft iron inside a solenoid used as a door lock electromagnet. Evaluate this choice.",
+        points=[P("the choice is poor", ["poor", "bad", "wrong", "not suitable", "unsuitable"]),
+                P("steel stays magnetised when the current is switched off", ["stays magnetised", "keeps its magnetism", "permanent", "remains magnetised"]),
+                P("so the lock would not release; soft iron should be used", ["would not release", "stays locked", "soft iron", "not release"])],
+        min_points=2,
+        model_answer="It is a poor choice. Steel stays magnetised when the current is switched off, so the lock might not release. Soft iron should be used because it loses its magnetism as soon as the current stops.",
+        hints=["Does steel keep its magnetism?", "What must the lock do when switched off?", "What should be used?"],
+        keywords="poor; steel stays magnetised; use soft iron",
+        sample_pass=["Poor choice: steel stays magnetised so the lock would not release; use soft iron", "steel keeps its magnetism when switched off, so soft iron is better"],
+        sample_fail=["Good, steel is stronger", "It makes no difference"])
+
+written("w18x_eval_relay_written", 18, 5, "18b",
+        stem="Evaluate the use of a relay controlled by a thermistor circuit to switch on a large heater automatically when a room gets cold.",
+        points=[P("the thermistor circuit only carries a small current", ["small current", "low current", "low voltage"]),
+                P("the relay lets this small current switch the large heater current", ["relay", "switch", "large current"]),
+                P("it is safe (isolates the sensor circuit) and automatic", ["safe", "isolat", "automatic", "separate"])],
+        min_points=2,
+        model_answer="It is a good design. The thermistor sensing circuit carries only a small current, which could not run the heater directly. The relay lets this small current switch on the large heater current automatically when it gets cold, and keeps the sensor circuit isolated from the high-current circuit, which is safer.",
+        hints=["Can the sensor circuit carry the heater's current?", "What does the relay do?", "Why is it safer?"],
+        keywords="small sensor current; relay switches large current; safe/automatic",
+        sample_pass=["The thermistor circuit carries a small current and the relay lets it switch the large heater current safely and automatically", "good: the relay isolates the low-current sensor circuit while switching the heater"],
+        sample_fail=["The relay heats the room", "A relay is not needed"])
+
+written("w18x_eval_breaker_rating", 18, 5, "18b",
+        stem="A householder's circuit breaker keeps tripping, so they replace it with one of a much higher rating. Evaluate this decision.",
+        points=[P("this is unsafe", ["unsafe", "dangerous", "poor", "bad"]),
+                P("the breaker trips because the current is too large (fault or overload)", ["too large", "overload", "fault"]),
+                P("a higher rating lets large currents overheat the cables and cause a fire", ["overheat", "fire", "cables", "wires"])],
+        min_points=2,
+        model_answer="It is unsafe. The breaker trips because the current is too large, due to a fault or an overload. A higher-rated breaker would let a large current flow without tripping, which could overheat the cables and start a fire. The cause should be found and fixed instead.",
+        hints=["Why does it trip?", "What would a higher rating allow?", "What could happen?"],
+        keywords="unsafe; current too large; cables overheat, fire",
+        sample_pass=["Unsafe: it trips because the current is too large, and a higher rating could let the cables overheat and start a fire", "dangerous, the overload remains and the wires could catch fire"],
+        sample_fail=["Good idea, it will stop tripping", "Safe because breakers can be reset"])
+
+written("w18x_eval_commutator_claim", 18, 5, "18f",
+        stem="A student says the commutator in a d.c. motor changes the current from the battery into alternating current. Evaluate this statement.",
+        points=[P("partly true: the current IN THE COIL reverses every half turn", ["in the coil", "reverses every half turn", "half turn", "coil current reverses"]),
+                P("but the battery's current is still direct (one direction)", ["battery", "still direct", "d.c.", "one direction"]),
+                P("its purpose is to keep the coil turning in one direction", ["keep turning", "one direction", "same direction", "continuous"])],
+        min_points=2,
+        model_answer="It is only partly true. The commutator reverses the current in the coil every half turn, so the coil's current alternates, but the current from the battery remains direct. The purpose of the reversal is to keep the coil turning in one direction.",
+        hints=["Which current reverses?", "Does the battery's current change?", "Why is the reversal needed?"],
+        keywords="coil current reverses; supply stays d.c.; keeps rotation one way",
+        sample_pass=["Partly: the current in the coil reverses every half turn, but the battery current is still direct; this keeps the coil turning in one direction", "only the coil current reverses; the supply stays d.c."],
+        sample_fail=["Correct, the battery gives a.c.", "The commutator stops the current"])
+
+written("w18x_eval_brushes_wear", 18, 5, "18f",
+        stem="A motor stops working after long use, and its carbon brushes are found to be worn down. Explain why this stops the motor and how the design allows for it.",
+        points=[P("worn brushes no longer touch the commutator, so no current reaches the coil", ["no longer touch", "no contact", "no current", "lose contact"]),
+                P("with no current there is no force/turning effect", ["no force", "no turning effect", "stops"]),
+                P("brushes are made of soft carbon so they can be replaced, protecting the commutator", ["replaced", "replaceable", "soft carbon", "protect"])],
+        min_points=2,
+        model_answer="When the brushes are worn down they no longer press on the commutator, so no current reaches the coil and there is no turning effect. The brushes are made of soft carbon so that they, not the commutator, wear away, and they can be replaced easily.",
+        hints=["What do the brushes connect?", "What happens without contact?", "Why are they designed to wear?"],
+        keywords="no contact → no current → no turning; replaceable carbon brushes",
+        sample_pass=["The worn brushes no longer touch the commutator so no current flows and there is no turning effect; they are made of carbon so they can be replaced", "no contact means no current; the brushes are replaceable"],
+        sample_fail=["The magnet has worn out", "The coil reversed"])
