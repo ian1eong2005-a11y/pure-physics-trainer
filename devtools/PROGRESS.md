@@ -11,3 +11,4 @@ Push ONCE at the end (teacher, 25 Oct 2026). Commit locally after each chapter.
 - Ch 8: calc_ch8x (42), explain_ch8 (42), written_ch8x (25)
 - Ch 9: calc_ch9x (40), explain_ch9 (42), written_ch9x (39)
 - Ch 10: calc_ch10x (40), explain_ch10 (42), written_ch10x (25); new drawer figs2.cro_trace
+- Ch 11: calc_ch11x (42), explain_ch11 (42), written_ch11x (25)
