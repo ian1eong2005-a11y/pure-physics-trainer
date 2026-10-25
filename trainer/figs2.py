@@ -648,3 +648,23 @@ def ladder_wall(x_label, h_label, W_label="W"):
     ax.set_xlim(-0.9, X0 + 1.6)
     ax.set_ylim(-0.8, 3.4)
     return _png(fig)
+
+
+def drop_sketch(h_label, body_label=None):
+    """An object released from rest at height h above the ground, with its path dashed and the height marked."""
+    fig, ax = _fig(3.0, 3.4)
+    ax.plot([-0.4, 2.6], [0, 0], color="black", lw=1.6)
+    for xx in np.arange(-0.3, 2.6, 0.25):
+        ax.plot([xx, xx - 0.15], [0, -0.15], color="black", lw=0.8)
+    ax.add_patch(Circle((1.0, 2.6), 0.17, fc="#bbbbbb", ec="black", lw=1.3, zorder=4))
+    ax.add_patch(Circle((1.0, 0.17), 0.17, fc="none", ec="black", lw=1.0, ls="--"))
+    ax.plot([1.0, 1.0], [2.4, 0.4], color="#555555", lw=1, ls=":")
+    ax.add_patch(FancyArrowPatch((1.0, 1.7), (1.0, 1.2), arrowstyle="-|>", mutation_scale=12, lw=1.2, color="black"))
+    if body_label:
+        ax.text(1.25, 2.6, body_label, ha="left", va="center", fontsize=9.5)
+    ax.text(1.25, 2.3, "released from rest", ha="left", va="top", fontsize=8.5)
+    ax.add_patch(FancyArrowPatch((0.2, 0), (0.2, 2.6), arrowstyle="<|-|>", mutation_scale=10, lw=1, color="black"))
+    ax.text(0.1, 1.3, h_label, ha="right", va="center", fontsize=10)
+    ax.set_xlim(-0.9, 2.8)
+    ax.set_ylim(-0.3, 3.0)
+    return _png(fig)
