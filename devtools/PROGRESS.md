@@ -15,3 +15,4 @@ Push ONCE at the end (teacher, 25 Oct 2026). Commit locally after each chapter.
 - Ch 12: calc_ch12x (40), explain_ch12 (40), written_ch12x (40)
 - Ch 13: calc_ch13x (42), explain_ch13 (42), written_ch13x (40)
 - Ch 14: calc_ch14x (42), explain_ch14 (40), written_ch14x (40)
+- Ch 15: calc_ch15x (42), explain_ch15 (40), written_ch15x (40)
