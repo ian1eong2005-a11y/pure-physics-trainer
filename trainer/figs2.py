@@ -497,3 +497,52 @@ def lens_beam(f, label="f"):
     ax.set_xlim(-3.4, f + 1.4)
     ax.set_ylim(-2.6, 2.0)
     return _png(fig)
+
+
+# ------------------------------------------------------------------ bank-extension drawers (25 Oct 2026)
+def rule_object(a_cm, b_cm, label="pencil"):
+    """An object lying against a centimetre rule from a_cm to b_cm (mm ticks), readings computed from the numbers."""
+    lo, hi = int(a_cm) - 1 if a_cm >= 1 else 0, int(b_cm) + 2
+    fig, ax = _fig(6.4, 1.9)
+    ax.add_patch(Rectangle((lo - 0.2, 0), hi - lo + 0.4, 0.9, fc="#f4ecd6", ec="black", lw=1.3))
+    for k in range(int(lo * 10), int(hi * 10) + 1):
+        x = k / 10
+        L = 0.42 if k % 10 == 0 else (0.28 if k % 5 == 0 else 0.16)
+        ax.plot([x, x], [0.9, 0.9 - L], color="black", lw=0.8 if k % 10 else 1.1)
+        if k % 10 == 0:
+            ax.text(x, 0.3, str(k // 10), ha="center", va="center", fontsize=8)
+    ax.text(hi + 0.25, 0.3, "cm", ha="left", va="center", fontsize=8)
+    ax.add_patch(Rectangle((a_cm, 0.95), b_cm - a_cm, 0.32, fc="#d9d9d9", ec="black", lw=1.3))
+    ax.text((a_cm + b_cm) / 2, 1.11, label, ha="center", va="center", fontsize=9)
+    for x in (a_cm, b_cm):
+        ax.plot([x, x], [0.9, 1.4], color="#c00000", lw=1.0, ls="--")
+    ax.set_xlim(lo - 0.5, hi + 1.0)
+    ax.set_ylim(-0.1, 1.5)
+    return _png(fig)
+
+
+def forces_on_line(items, body="box"):
+    """Forces along one horizontal line on a box: items = [(label, 'right'|'left', relative length)], stacked so none overlap."""
+    fig, ax = _fig(6.0, 2.2)
+    ax.plot([-3.2, 3.2], [-0.5, -0.5], color="black", lw=1.4)
+    ax.add_patch(Rectangle((-0.7, -0.5), 1.4, 1.0, fc="white", ec="black", lw=1.6))
+    ax.text(0, 0, body, ha="center", va="center", fontsize=10)
+    ys = np.linspace(0.3, -0.3, len(items)) if len(items) > 1 else [0.0]
+    for (lab, d, L), y in zip(items, ys):
+        L = 0.6 + 1.6 * L / max(x[2] for x in items)
+        if d == "right":
+            p0, p1, tx = (0.7, y), (0.7 + L, y), 0.7 + L + 0.1
+            ha = "left"
+        else:
+            p0, p1, tx = (-0.7, y), (-0.7 - L, y), -0.7 - L - 0.1
+            ha = "right"
+        ax.add_patch(FancyArrowPatch(p0, p1, arrowstyle="-|>", mutation_scale=13, lw=1.8, color="black", shrinkA=0, shrinkB=0))
+        ax.text(tx, y, lab, ha=ha, va="center", fontsize=10)
+    ax.set_xlim(-4.2, 4.2)
+    ax.set_ylim(-0.9, 0.8)
+    return _png(fig)
+
+
+def stopwatch_text(t):
+    """mm:ss.hh display string for a time in seconds."""
+    return f"{int(t // 60)}:{t - 60 * int(t // 60):05.2f}"

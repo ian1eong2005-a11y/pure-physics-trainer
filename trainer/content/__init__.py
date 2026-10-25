@@ -1,5 +1,5 @@
 """Question content registry. Importing the chapter modules registers their templates."""
-from . import calc_ch1, calc_ch10, calc_ch11, calc_ch11b, calc_ch12, calc_ch13, calc_ch14, calc_ch15, calc_ch16, calc_ch17, calc_ch18, calc_ch19, calc_ch2, calc_ch20, calc_ch3, calc_ch3b, calc_ch4, calc_ch5, calc_ch6, calc_ch6b, calc_ch7, calc_ch8, calc_ch9, recall, recall2, recall3, recall4, written_ch1, written_ch12, written_ch13, written_ch14, written_ch15, written_ch16, written_ch17, written_ch18, written_ch19, written_ch20, written_ch10, written_ch11, written_ch2, written_ch3, written_ch3b, written_ch4, written_ch6, written_ch7, written_ch8  # noqa: F401
+from . import calc_ch1, calc_ch1b, explain_ch1, written_ch1b, calc_ch10, calc_ch11, calc_ch11b, calc_ch12, calc_ch13, calc_ch14, calc_ch15, calc_ch16, calc_ch17, calc_ch18, calc_ch19, calc_ch2, calc_ch20, calc_ch3, calc_ch3b, calc_ch4, calc_ch5, calc_ch6, calc_ch6b, calc_ch7, calc_ch8, calc_ch9, recall, recall2, recall3, recall4, written_ch1, written_ch12, written_ch13, written_ch14, written_ch15, written_ch16, written_ch17, written_ch18, written_ch19, written_ch20, written_ch10, written_ch11, written_ch2, written_ch3, written_ch3b, written_ch4, written_ch6, written_ch7, written_ch8  # noqa: F401
 from .base import TEMPLATES, Question, Template
 
 

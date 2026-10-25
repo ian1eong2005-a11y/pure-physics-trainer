@@ -32,6 +32,23 @@ def test_inventory():
     assert len([t for t in TEMPLATES if t.category == "explain"]) >= len(RECALL) + len(RECALL2)
 
 
+POOL_TARGET, POOL_MIN_LOS = 10, 3       # teacher, 25 Oct 2026: 10 per level per category per chapter, varied, each type at least twice
+
+
+@pytest.mark.parametrize("ch", list(CHAPTERS))
+def test_pool_coverage(ch):
+    """Every (chapter, category, level) pool: >= 10 questions, >= 3 different learning outcomes, each outcome at least twice."""
+    bad = []
+    for cat in ("calc", "explain", "written"):
+        for lv in range(1, 6):
+            pool = [t for t in TEMPLATES if t.chapter == ch and t.category == cat and t.level == lv]
+            los = Counter(t.lo for t in pool)
+            singles = sorted(k for k, v in los.items() if v < 2)
+            if len(pool) < POOL_TARGET or len(los) < POOL_MIN_LOS or singles:
+                bad.append(f"{cat} L{lv}: {len(pool)} q, LOs {dict(los)}")
+    assert not bad, f"Ch {ch}: " + "; ".join(bad)
+
+
 def test_every_chapter_has_every_level_somewhere():
     """Each chapter offers all five levels across its categories (the engine borrows neighbouring levels within a category)."""
     for ch in CHAPTERS:

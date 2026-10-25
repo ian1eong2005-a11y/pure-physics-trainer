@@ -173,6 +173,35 @@ def nice(rng: random.Random, *choices):
     return rng.choice(choices)
 
 
+# ------------------------------------------------------------------ compact builders (6091 bank extension, 25 Oct 2026)
+def mk(rng, answer, wrongs, unit, stem, formula, working, hints, figure=None, sf=3, dp=None):
+    """Numeric calculation question in one call: four options from the answer and (value, misconception) pairs."""
+    opts, key, mis = numeric_options(rng, answer, wrongs, unit=unit, sf=sf, dp=dp)
+    return dict(stem=stem, options=opts, key=key, misconceptions=mis, formula=formula, working=working, hints=hints, figure=figure)
+
+
+def mkt(rng, correct, wrongs, stem, formula, working, hints, figure=None):
+    """Word-answer calculation / data-reading question: wrongs maps option text -> misconception."""
+    opts, key, mis = text_options(rng, correct, wrongs)
+    return dict(stem=stem, options=opts, key=key, misconceptions=mis, formula=formula, working=working, hints=hints, figure=figure)
+
+
+def X(id, level, lo, stem, correct, wrongs, hints, figure=None):
+    """One explanation MCQ item (fixed text, options shuffled when served). Register a chapter's list with explain_bank()."""
+    return dict(id=id, level=level, lo=lo, stem=stem, correct=correct, wrongs=wrongs, hints=hints, figure=figure)
+
+
+def explain_bank(chapter, items):
+    for item in items:
+        def make(rng, item=item):
+            opts, key, mis = text_options(rng, item["correct"], item["wrongs"])
+            fig = item.get("figure")
+            hints = [h if "___" not in h else "Rule out the options that contradict what you know, then choose the one that matches the definition exactly." for h in item["hints"]]
+            return dict(stem=item["stem"], options=opts, key=key, misconceptions=mis, hints=hints,
+                        working=[f"Correct answer: **{item['correct']}**"], formula=None, figure=fig() if fig else None)
+        template(item["id"], chapter=chapter, level=item["level"], lo=item["lo"], category="explain")(make)
+
+
 def md_table(headers, rows):
     out = ["| " + " | ".join(headers) + " |", "|" + "|".join(["---"] * len(headers)) + "|"]
     for r in rows:
