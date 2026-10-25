@@ -1,5 +1,7 @@
 # Pure Physics Trainer
 
+**Live app:** https://qtss-pure-physics.streamlit.app  (teacher dashboard: add `?teacher=1` or use the sidebar)
+
 Adaptive self-study trainer for O-Level Pure Physics (SEAB 6091), all 20 topics, numbered as in the syllabus and the school's
 content page. Streamlit app, no database. Built from the G3 Physics Trainer (same engine, store, marker and UIs); content
 re-mapped to 6091 and extended to Chapters 12–20.
