@@ -90,12 +90,14 @@ def compass_field_direction(rng):
 
 @template("c17x_earth_pole_compass", chapter=17, level=1, lo="17d")
 def earth_pole_compass(rng):
-    wrongs = {"a magnetic north pole": "The compass N pole is attracted to it, so it must be a magnetic SOUTH pole.",
-              "not a magnetic pole": "It is where the Earth's field lines enter.", "a positive charge": "Magnetism is not electric charge."}
-    table = md_table(["observation", ""], [["compass N pole points to", "geographic North Pole"]])
-    return mkt(rng, "a magnetic south pole", wrongs, f"{table}\n\nUsing the rule for attraction between poles, what kind of magnetic pole is near the Earth's geographic North Pole?",
-               "unlike poles attract: the compass N is pulled towards a S pole", ["the compass N is attracted there → **magnetic south pole**"],
-               ["What attracts a N pole?", "A S pole.", "So the geographic north has a magnetic S pole."])
+    end = rng.choice(["North", "South"])
+    cpole, ans, other = ("N", "a magnetic south pole", "a magnetic north pole") if end == "North" else ("S", "a magnetic north pole", "a magnetic south pole")
+    wrongs = {other: f"The compass {cpole} pole is attracted to it, and unlike poles attract.",
+              "not a magnetic pole": "The Earth's field lines meet the surface steeply near the geographic poles.", "a positive charge": "Magnetism is not electric charge."}
+    table = md_table(["observation", ""], [[f"compass {cpole} pole points to", f"geographic {end} Pole"]])
+    return mkt(rng, ans, wrongs, f"{table}\n\nUsing the rule for attraction between poles, what kind of magnetic pole is near the Earth's geographic {end} Pole?",
+               "unlike poles attract", [f"the compass {cpole} pole is attracted there → **{ans}**"],
+               [f"What attracts a {cpole} pole?", "An unlike pole.", f"So what is near the geographic {end} Pole?"])
 
 
 # ================================================================== L2
@@ -393,11 +395,11 @@ def compass_deflect_angle_change(rng):
 @template("c17x_compass_earth_vs_magnet", chapter=17, level=4, lo="17d")
 def compass_earth_vs_magnet(rng):
     d = [5, 10, 20, 40, 80]
-    ang = [85, 60, 25, 6, 1]
-    limit = 5
-    ans = next(x for x, a in zip(d, ang) if a <= limit + 1)
-    return mk(rng, ans, [(20, "The magnet still turns the needle a lot at 20 cm."), (80, "The needle is already nearly unaffected before 80 cm."), (10, "Find where the deflection becomes small.")],
-              "cm", f"A compass is moved away from a magnet along an east–west line.\n\n{md_table(['distance / cm', 'deflection from north / °'], [[x, a] for x, a in zip(d, ang)])}\n\nAt about what distance does the magnet's field become small compared with the Earth's (deflection about 6° or less)?",
+    ang = rng.choice([[85, 60, 25, 6, 1], [80, 50, 5, 1, 0], [88, 75, 40, 15, 4]])
+    ans = next(x for x, a in zip(d, ang) if a <= 6)
+    wrongs = [(x, "The magnet still turns the needle a lot there." if x < ans else "The deflection is already small at a shorter distance.") for x in d if x != ans][-3:]
+    return mk(rng, ans, wrongs,
+              "cm", f"A compass is moved away from a {rng.choice(['bar magnet', 'strong magnet', 'magnet'])} along an east–west line.\n\n{md_table(['distance / cm', 'deflection from north / °'], [[x, a] for x, a in zip(d, ang)])}\n\nAt about what distance does the magnet's field become small compared with the Earth's (deflection about 6° or less)?",
               "read where the deflection falls to a few degrees", [f"deflection ≈ 6° at **{ans} cm**"],
               ["Look for a small deflection.", "Near zero means the Earth's field dominates.", "Read the distance."], dp=0)
 

@@ -29,31 +29,33 @@ re-mapped to 6091 and extended to Chapters 12–20.
 | L4 | graphs and linked formulas | explain with reasoning | explain with a chain of reasoning |
 | L5 | multi-step with a trap or an unfamiliar context | evaluate | apply or evaluate in a new situation |
 
-## Question bank (first round, 25 Oct 2026)
+## Question bank (extended 25 Oct 2026)
+
+Every chapter has at least 10 questions per level in each category, covering at least 3 learning outcomes, with every learning outcome in a pool appearing at least twice (`tests/test_content.py::test_pool_coverage`, survey with `python devtools/gaps.py <chapter>`). Questions are adapted from the question bank, never copied.
 
 | Ch | Topic | Calculation (L1–L5) | Explanation (L1–L5) | Written (L1–L5) | Total |
 |---|---|---|---|---|---|
-| 1 | Physical Quantities, Units and Measurement | 11 (2/3/2/2/2) | 10 (4/5/1/0/0) | 25 (5/5/5/5/5) | 46 |
-| 2 | Kinematics | 14 (3/1/3/4/3) | 8 (4/3/1/0/0) | 25 (5/5/5/5/5) | 47 |
-| 3 | Dynamics | 11 (2/2/2/2/3) | 8 (4/4/0/0/0) | 33 (8/7/6/6/6) | 52 |
-| 4 | Turning Effects of Forces | 9 (2/1/2/2/2) | 8 (3/3/2/0/0) | 25 (5/5/5/5/5) | 42 |
-| 5 | Pressure | 16 (2/3/4/4/3) | 8 (2/3/3/0/0) | 17 (2/3/4/4/4) | 41 |
-| 6 | Energy | 12 (2/3/2/3/2) | 8 (3/4/1/0/0) | 25 (5/5/5/5/5) | 45 |
-| 7 | Kinetic Particle Model of Matter | 9 (2/1/2/2/2) | 8 (3/2/3/0/0) | 14 (3/3/3/2/3) | 31 |
-| 8 | Thermal Processes | 8 (2/1/2/2/1) | 8 (2/5/1/0/0) | 25 (5/5/5/5/5) | 41 |
-| 9 | Thermal Properties of Matter | 10 (2/2/2/2/2) | 8 (2/4/2/0/0) | 11 (2/2/2/3/2) | 29 |
-| 10 | General Properties of Waves | 11 (2/3/2/2/2) | 8 (4/3/1/0/0) | 25 (5/5/5/5/5) | 44 |
-| 11 | Electromagnetic Spectrum | 8 (1/1/2/3/1) | 8 (4/4/0/0/0) | 25 (5/5/5/5/5) | 41 |
-| 12 | Light | 10 (2/2/2/2/2) | 10 (3/2/3/1/1) | 10 (2/2/2/2/2) | 30 |
-| 13 | Static Electricity | 9 (2/2/2/2/1) | 10 (3/2/3/1/1) | 10 (2/2/2/2/2) | 29 |
-| 14 | Current of Electricity | 11 (2/3/2/2/2) | 10 (3/3/2/1/1) | 10 (2/2/2/2/2) | 31 |
-| 15 | D.C. Circuits | 10 (2/2/2/2/2) | 10 (3/3/3/0/1) | 10 (2/2/2/2/2) | 30 |
-| 16 | Practical Electricity | 10 (2/2/2/2/2) | 10 (3/3/2/1/1) | 10 (2/2/2/2/2) | 30 |
-| 17 | Magnetism | 9 (2/2/2/2/1) | 10 (2/3/2/2/1) | 10 (2/2/2/2/2) | 29 |
-| 18 | Electromagnetism | 9 (2/2/2/2/1) | 10 (3/3/2/1/1) | 10 (2/2/2/2/2) | 29 |
-| 19 | Electromagnetic Induction | 10 (2/2/2/2/2) | 10 (3/3/2/1/1) | 10 (2/2/2/2/2) | 30 |
-| 20 | Radioactivity | 10 (2/2/2/2/2) | 10 (3/3/2/1/1) | 10 (2/2/2/2/2) | 30 |
-| | **All** | **207** | **180** | **340** | **727** |
+| 1 | Physical Quantities, Units and Measurement | 51 (11/10/10/10/10) | 51 (10/10/11/10/10) | 51 (10/10/10/10/11) | 153 |
+| 2 | Kinematics | 52 (10/10/11/10/11) | 53 (12/11/10/10/10) | 50 (10/10/10/10/10) | 155 |
+| 3 | Dynamics | 53 (12/10/10/10/11) | 50 (10/10/10/10/10) | 56 (14/11/11/10/10) | 159 |
+| 4 | Turning Effects of Forces | 51 (11/10/10/10/10) | 59 (13/13/12/11/10) | 50 (10/10/10/10/10) | 160 |
+| 5 | Pressure | 50 (10/10/10/10/10) | 53 (11/11/11/10/10) | 50 (10/10/10/10/10) | 153 |
+| 6 | Energy | 51 (10/10/10/10/11) | 57 (13/13/11/10/10) | 50 (10/10/10/10/10) | 158 |
+| 7 | Kinetic Particle Model of Matter | 51 (10/10/11/10/10) | 55 (13/12/10/10/10) | 50 (10/10/10/10/10) | 156 |
+| 8 | Thermal Processes | 52 (10/10/11/10/11) | 52 (12/10/10/10/10) | 50 (10/10/10/10/10) | 154 |
+| 9 | Thermal Properties of Matter | 50 (10/10/10/10/10) | 54 (12/10/12/10/10) | 50 (10/10/10/10/10) | 154 |
+| 10 | General Properties of Waves | 51 (10/10/10/11/10) | 54 (14/10/10/10/10) | 50 (10/10/10/10/10) | 155 |
+| 11 | Electromagnetic Spectrum | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 150 |
+| 12 | Light | 55 (11/10/11/11/12) | 51 (10/10/10/10/11) | 50 (10/10/10/10/10) | 156 |
+| 13 | Static Electricity | 51 (10/10/11/10/10) | 51 (10/10/10/10/11) | 50 (10/10/10/10/10) | 152 |
+| 14 | Current of Electricity | 53 (10/12/11/10/10) | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 153 |
+| 15 | D.C. Circuits | 52 (10/10/10/11/11) | 51 (10/10/11/10/10) | 51 (10/10/10/10/11) | 154 |
+| 16 | Practical Electricity | 55 (10/10/11/12/12) | 51 (10/10/10/10/11) | 50 (10/10/10/10/10) | 156 |
+| 17 | Magnetism | 52 (10/10/12/10/10) | 52 (10/10/10/12/10) | 52 (10/10/12/10/10) | 156 |
+| 18 | Electromagnetism | 56 (11/11/12/12/10) | 50 (10/10/10/10/10) | 51 (10/10/10/10/11) | 157 |
+| 19 | Electromagnetic Induction | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 150 |
+| 20 | Radioactivity | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 50 (10/10/10/10/10) | 150 |
+| | **All** | **1036** | **1044** | **1011** | **3091** |
 
 ## Run locally
 

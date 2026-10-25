@@ -458,12 +458,12 @@ def solenoid_turns_per_metre(rng):
 
 @template("c18x_breaker_vs_fuse_choice", chapter=18, level=5, lo="18b")
 def breaker_vs_fuse_choice(rng):
-    rows = [("fuse", "0.1 s", "must be replaced"), ("electromagnetic breaker", "0.02 s", "reset by switch")]
+    rows = [("fuse", f"{nice(rng, 0.1, 0.2, 0.5)} s", "must be replaced"), ("electromagnetic breaker", f"{nice(rng, 0.01, 0.02, 0.03)} s", "reset by switch")]
     wrongs = {"the fuse, because it can be reset": "Fuses must be replaced; breakers are reset.", "the fuse, because it is faster": "The breaker is faster here.",
               "neither, they are identical": "They differ in speed and reuse."}
     table = md_table(["device", "time to cut off", "after tripping"], [list(r) for r in rows])
     return mkt(rng, "the breaker, because it is faster and can be reset", wrongs, f"{table}\n\nWhich device is better for protecting a household circuit, and why?",
-               "breaker: faster, resettable", ["**the breaker** (0.02 s, resettable)"],
+               "breaker: faster, resettable", [f"**the breaker** ({rows[1][1]}, resettable)"],
                ["Compare the cut-off times.", "Compare what happens after.", "Choose."])
 
 
@@ -531,7 +531,8 @@ def commutator_no_split(rng):
     ans = "it rocks back and forth and stops in the vertical position"
     wrongs = {"it turns continuously in one direction": "Without a split ring the current never reverses, so the coil cannot keep turning one way.",
               "it turns twice as fast": "The coil cannot complete a turn.", "nothing happens at all": "It turns part way first."}
-    table = md_table(["motor", "connection to coil"], [["normal", "split-ring commutator"], ["faulty", "two complete slip rings (no split)"]])
+    V = nice(rng, 3.0, 4.5, 6.0, 9.0)
+    table = md_table(["motor", "connection to coil", "supply"], [["normal", "split-ring commutator", f"{fmt(V)} V d.c."], ["faulty", "two complete slip rings (no split)", f"{fmt(V)} V d.c."]])
     return mkt(rng, ans, wrongs, f"{table}\n\nWhat happens to the faulty motor's coil when it is switched on?",
                "without reversal, the turning effect reverses after half a turn", [f"**{ans}**"],
                ["What does the split ring do?", "Reverses the current every half turn.", "Without it, the forces reverse after half a turn."])

@@ -67,8 +67,10 @@ def black_can_cooling(rng):
 def convection_direction(rng):
     wrongs = {"sinks, because it becomes denser": "Heated water expands and becomes LESS dense.", "stays still, because water is a poor conductor": "Convection moves the water.",
               "rises, because it becomes denser": "Less dense water rises."}
+    heater = rng.choice(["a Bunsen flame", "a small spirit lamp", "a heating coil"])
+    vessel = rng.choice(["beaker", "glass tank", "flask"])
     return mkt(rng, "rises, because it expands and becomes less dense", wrongs,
-               "Fig. 1 shows water heated at the bottom left of a beaker. What happens to the water at A, directly above the flame?",
+               f"Fig. 1 shows water in a {vessel} heated at the bottom left by {heater}. What happens to the water at A, directly above the heat source?",
                "heated fluid expands → less dense → rises; cooler denser fluid sinks", ["warm water at A expands, is less dense and **rises**"],
                ["What happens to water when heated?", "It expands.", "Less dense → rises."], figure=sketches.convection_sketch())
 

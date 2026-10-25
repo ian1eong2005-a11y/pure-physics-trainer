@@ -346,13 +346,14 @@ def gas_piston_heated(rng):
 # ================================================================== L4
 @template("c7x_gold_solidifies", chapter=7, level=4, lo="7a")
 def gold_solidifies(rng):
-    T = nice(rng, 1064)
+    metal, T = rng.choice([("gold", 1064), ("silver", 962), ("copper", 1085), ("aluminium", 660), ("lead", 327)])
+    up, down = nice(rng, 20, 26, 30), nice(rng, 18, 24, 28)
     wrongs = {"the temperature falls steadily while it solidifies": "During a change of state the temperature stays constant.",
               "the particles stop moving": "Particles in a solid still vibrate.",
               "the particles move further apart": "Solidifying brings the particles into a fixed, closely packed arrangement."}
-    table = md_table(["time / min", "0", "1", "2", "3", "4"], [["temperature / °C", 1090, T, T, T, 1040]])
+    table = md_table(["time / min", "0", "1", "2", "3", "4"], [["temperature / °C", T + up, T, T, T, T - down]])
     return mkt(rng, "the temperature stays constant while the particles take up fixed positions", wrongs,
-               f"Molten gold is poured into a mould and cools.\n\n{table}\n\nWhich statement describes the gold from 1 to 3 minutes?",
+               f"Molten {metal} is poured into a mould and cools.\n\n{table}\n\nWhich statement describes the {metal} from 1 to 3 minutes?",
                "change of state at constant temperature; particles become fixed in a lattice", [f"the temperature stays at {T} °C (the melting point) → **constant temperature while the particles take up fixed positions**"],
                ["Which part of the table is constant?", "That is a change of state.", "Liquid → solid."])
 

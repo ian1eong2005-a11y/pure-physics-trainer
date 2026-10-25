@@ -313,12 +313,12 @@ def angle_into_glass_from_water(rng):
 
 @template("c12x_min_n_for_prism", chapter=12, level=4, lo="12f")
 def min_n_for_prism(rng):
-    i = 45
+    i = nice(rng, 45, 50, 55, 60)
     n_min = 1 / math.sin(math.radians(i))
-    return mk(rng, n_min, [(math.sin(math.radians(i)), "n_min = 1 ÷ sin 45°."), (1.5, "Calculate the minimum, not a typical value."), (2.0, "n = 1 ÷ sin c with c = 45°.")],
-              "", f"A 45° prism in binoculars must totally internally reflect light that meets its face at 45°.\n\n{md_table(['quantity', 'value'], [['angle of incidence at the face', '45°']])}\n\nWhat is the minimum refractive index of the glass?",
-              "TIR needs c ≤ 45° → n ≥ 1 ÷ sin 45°", [f"n = 1 ÷ sin 45° = **{fmt(n_min, sf=3)}**"],
-              ["For TIR, i must be at least c.", "So c ≤ 45°.", "n = 1 ÷ sin c."], sf=3)
+    return mk(rng, n_min, [(math.sin(math.radians(i)), f"n_min = 1 ÷ sin {i}°, not sin {i}°."), (1.5, "Calculate the minimum, not a typical value."), (2.0, f"n = 1 ÷ sin c with c = {i}°.")],
+              "", f"A glass prism in an optical instrument must totally internally reflect light that meets one of its faces at {i}°.\n\n{md_table(['quantity', 'value'], [['angle of incidence at the face', f'{i}°']])}\n\nWhat is the minimum refractive index of the glass?",
+              f"TIR needs c ≤ {i}° → n ≥ 1 ÷ sin {i}°", [f"n = 1 ÷ sin {i}° = **{fmt(n_min, sf=3)}**"],
+              ["For TIR, i must be at least c.", f"So c ≤ {i}°.", "n = 1 ÷ sin c."], sf=3)
 
 
 @template("c12x_critical_compare", chapter=12, level=4, lo="12f")
