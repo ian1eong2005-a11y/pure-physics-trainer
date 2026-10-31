@@ -6,7 +6,7 @@ from collections import deque
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
 
-from .config import CATEGORIES, ONLINE_SECONDS, RECENT_AVOID
+from .config import CATEGORIES, HISTORY_LEN, ONLINE_SECONDS
 from .engine import CatState
 
 Key = Tuple[str, str]
@@ -34,7 +34,7 @@ class StudentRecord:
     last_active: float
     states: Dict[str, CatState] = field(default_factory=lambda: {c: CatState() for c in CATEGORIES})
     attempts: List[Attempt] = field(default_factory=list)
-    recent: Dict[str, deque] = field(default_factory=lambda: {c: deque(maxlen=RECENT_AVOID) for c in CATEGORIES})
+    recent: Dict[str, deque] = field(default_factory=lambda: {c: deque(maxlen=HISTORY_LEN) for c in CATEGORIES})
     current: Dict[str, object] = field(default_factory=dict)   # category -> Question being answered
     last_chapter: Optional[int] = None
 

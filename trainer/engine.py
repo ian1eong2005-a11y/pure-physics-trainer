@@ -10,7 +10,7 @@ Per student, per category (calc / explain):
 from dataclasses import dataclass, field
 from typing import Iterable, Optional
 
-from .config import DOWN_STREAK, MAX_LEVEL, MIN_LEVEL, RECENT_AVOID, START_LEVEL, UP_STREAK
+from .config import DOWN_STREAK, MAX_LEVEL, MIN_LEVEL, START_LEVEL, UP_STREAK
 
 
 @dataclass
@@ -67,10 +67,13 @@ def levels_available(templates: Iterable, category: str) -> list:
 
 
 def select_template(templates: Iterable, category: str, level: int, chapters: Iterable[int], recent_ids: Iterable[str], rng):
-    """Pick a template at the student's level from the chosen chapters, avoiding recently seen ids.
-    Fewer than 3 candidates at the level -> borrow from the adjacent levels. Nothing nearby -> nearest level that has content."""
+    """Pick a template at the student's level from the chosen chapters, like dealing from a shuffled deck:
+    a question the student has not been served yet is always preferred, so nothing repeats until the whole pool has been seen.
+    Once every question in the pool has been seen, pick at random from the least recently seen half (never the one just served).
+    Fewer than 3 candidates at the level -> borrow from the adjacent levels. Nothing nearby -> nearest level that has content.
+    `recent_ids` is the student's served-id history for this category, oldest first."""
     chapters = set(chapters)
-    recent = set(list(recent_ids)[-RECENT_AVOID:])
+    last_seen = {tid: i for i, tid in enumerate(recent_ids)}      # later index = seen more recently
     pool_all = [t for t in templates if t.category == category and t.chapter in chapters]
     if not pool_all:
         pool_all = [t for t in templates if t.category == category]
@@ -86,5 +89,8 @@ def select_template(templates: Iterable, category: str, level: int, chapters: It
     if not pool:
         nearest = sorted({t.level for t in pool_all}, key=lambda lv: (abs(lv - level), -lv))[0]
         pool = at(nearest)
-    fresh = [t for t in pool if t.id not in recent]
-    return rng.choice(fresh or pool)
+    unseen = [t for t in pool if t.id not in last_seen]
+    if unseen:
+        return rng.choice(unseen)
+    oldest_first = sorted(pool, key=lambda t: last_seen[t.id])
+    return rng.choice(oldest_first[:max(1, len(oldest_first) // 2)])

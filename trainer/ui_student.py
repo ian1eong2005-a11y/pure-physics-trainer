@@ -4,13 +4,14 @@ import time
 
 import streamlit as st
 
-from .config import CATEGORIES, CHAPTERS, DOWN_STREAK, EXPLAIN_LEVEL_NAMES, LEVEL_NAMES, UP_STREAK, WRITTEN_LEVEL_NAMES
+from .config import (CATEGORIES, CHAPTERS, DOWN_STREAK, EXPLAIN_LEVEL_NAMES, LEVEL_NAMES, OLEVEL_LEVEL_NAMES, UP_STREAK,
+                     WRITTEN_LEVEL_NAMES, p2_2026_note)
 from .content import TEMPLATES, chapters_with_content
 from .engine import apply_first_attempt, levels_available, repeat_until_correct, select_template
 from .marker import mark
 from .store import Attempt
 
-LEVEL_NAME_SETS = {"calc": LEVEL_NAMES, "explain": EXPLAIN_LEVEL_NAMES, "written": WRITTEN_LEVEL_NAMES}
+LEVEL_NAME_SETS = {"calc": LEVEL_NAMES, "explain": EXPLAIN_LEVEL_NAMES, "written": WRITTEN_LEVEL_NAMES, "olevel": OLEVEL_LEVEL_NAMES}
 
 _rng = random.Random()
 
@@ -19,9 +20,16 @@ def _qs():
     return st.session_state.setdefault("qs", {})
 
 
+def _pool(cat):
+    """Templates to draw from: for the O-level set, optionally only the outcomes the 2026 Paper 2 did not test."""
+    if cat == "olevel" and st.session_state.get("olevel_not_p2"):
+        return [t for t in TEMPLATES if t.category == "olevel" and p2_2026_note(t.lo)]
+    return TEMPLATES
+
+
 def _serve(store, rec, cat, chapters):
     state = rec.states[cat]
-    tpl = select_template(TEMPLATES, cat, state.level, chapters, rec.recent[cat], _rng)
+    tpl = select_template(_pool(cat), cat, state.level, chapters, rec.recent[cat], _rng)
     q = tpl.make(_rng.randrange(1_000_000_000))
     rec.recent[cat].append(tpl.id)
     rec.current[cat] = q
@@ -115,13 +123,26 @@ def render_student(store, rec):
         ss["category"] = cat
         ss.pop("qs", None)
     available = chapters_with_content(cat)
+    if cat == "olevel":
+        only = st.checkbox("Only questions NOT in P2 2026", value=ss.get("olevel_not_p2", False),
+                           help="Skip outcomes the 2026 O-Level Paper 2 already tested. Outcomes tested only in the "
+                                "either/or Q10 or Q11 are kept.")
+        if only != ss.get("olevel_not_p2", False):
+            ss["olevel_not_p2"] = only
+            ss.pop("qs", None)
+        if only:
+            available = sorted({t.chapter for t in _pool(cat)})
     with st.expander("Chapters", expanded=False):
         default = [c for c in ss.get("chapters", available) if c in available] or available
         chapters = st.multiselect("Practise these chapters", available, default=default,
                                   format_func=lambda c: f"Ch {c} {CHAPTERS[c]}", key=f"chapters_ms_{cat}")
         missing = [c for c in CHAPTERS if c not in available]
         if missing:
-            st.caption("No " + CATEGORIES[cat].lower() + " questions yet for: " + ", ".join(f"Ch {c}" for c in missing) + ".")
+            if cat == "olevel":
+                st.caption("No questions NOT in P2 2026 for " + ", ".join(f"Ch {c}" for c in missing)
+                           + ": the 2026 O-Level Paper 2 tested every outcome there. Untick the box to practise them.")
+            else:
+                st.caption("No " + CATEGORIES[cat].lower() + " questions yet for: " + ", ".join(f"Ch {c}" for c in missing) + ".")
     if not chapters:
         chapters = available
     if chapters != ss.get("chapters"):
@@ -146,6 +167,9 @@ def render_student(store, rec):
     # ---- the question
     st.divider()
     st.caption(f"Ch {q.chapter} {CHAPTERS[q.chapter]} · L{q.level}")
+    note = p2_2026_note(q.lo) if q.category == "olevel" else None
+    if note:
+        st.markdown(f":orange-badge[{note}]")
     st.markdown(q.stem)
     if q.figure:
         st.image(q.figure, caption="Fig. 1", width=480)

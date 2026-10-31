@@ -9,10 +9,13 @@ re-mapped to 6091 and extended to Chapters 12–20.
 ## How it works
 
 - Students log in with **name + class** (no password). Teacher view is password protected.
-- Three categories: **Calculation** (parametrised templates, numbers change every time, every one with a diagram or data table
-  drawn from the question's own numbers), **Explanation** (fixed MCQs, options reshuffled on every serve) and **Written answer**
-  (marked by meaning, not word for word: `trainer/marker.py`, no LLM). For the descriptive chapters (7, 8, 11, 13, 17, 18, 20)
-  the Calculation category holds data-reading questions (tables, graphs, rule-based directions), as agreed with the teacher.
+- Four categories: **Calculation** (parametrised templates, numbers change every time, every one with a diagram or data table
+  drawn from the question's own numbers), **Explanation** (fixed MCQs, options reshuffled on every serve), **Written answer**
+  (marked by meaning, not word for word: `trainer/marker.py`, no LLM) and **O level 2026 MCQ practice** (see below). For the
+  descriptive chapters (7, 8, 11, 13, 17, 18, 20) the Calculation category holds data-reading questions (tables, graphs,
+  rule-based directions), as agreed with the teacher.
+- Questions are dealt like a shuffled deck: nothing repeats until the whole pool for the chosen chapters and level has been seen
+  (`select_template` in `trainer/engine.py`; history of 1000 served ids per category).
 - **5 correct in a row → level up. 3 wrong in a row → level down.** Everyone starts at L1. Only the first attempt counts.
 - A wrong answer opens the scripted **tutor**: a message about the chosen option, up to 3 hints, the formula / key words on request,
   then one retry (correct retries never count towards the streak). L1 explanation and written questions come back until correct.
@@ -21,13 +24,30 @@ re-mapped to 6091 and extended to Chapters 12–20.
 
 ## Levels
 
-| | Calculation | Explanation | Written answer |
-|---|---|---|---|
-| L1 | one formula, direct substitution | recall and definitions | state or define in a phrase |
-| L2 | one formula with a conversion, reading or rearrangement | identify and classify | two facts or a simple description |
-| L3 | two steps, usually with a figure | apply a concept | explain with a reason |
-| L4 | graphs and linked formulas | explain with reasoning | explain with a chain of reasoning |
-| L5 | multi-step with a trap or an unfamiliar context | evaluate | apply or evaluate in a new situation |
+| | Calculation | Explanation | Written answer | O level 2026 MCQ practice |
+|---|---|---|---|---|
+| L1 | one formula, direct substitution | recall and definitions | state or define in a phrase | recall a definition or fact (SEAB style) |
+| L2 | one formula with a conversion, reading or rearrangement | identify and classify | two facts or a simple description | one step: a formula or a rule |
+| L3 | two steps, usually with a figure | apply a concept | explain with a reason | read a diagram or graph, or two steps |
+| L4 | graphs and linked formulas | explain with reasoning | explain with a chain of reasoning | link two ideas or interpret an experiment |
+| L5 | multi-step with a trap or an unfamiliar context | evaluate | apply or evaluate in a new situation | unfamiliar context, or a trap in the data |
+
+## O level 2026 MCQ practice (added 31 Oct 2026)
+
+A revision bank for the 6091 Paper 1 the week after the 2026 Paper 2, built from `OLEVEL_MCQ_BUILD_PROMPT.md`: 184 MCQs covering
+**every one of the 159 learning outcomes** of the 2026 syllabus. All 40 MCQs of the SEAB 6091 specimen Paper 1 are in (adapted, as
+every question here is: same context and skill, numbers changed, figures redrawn, picture options turned into word options); the other
+outcomes are adapted from schools' 2024-2026 Paper 1 prelims (QTSS 2026, NAS 2025, HGV, XMSS, BGSS, BRD, ACSBR, Punggol, SHSS, BPGHS,
+RGT, WDL 2024, GESS, AMKSS, CCHM, Commonwealth 2025), with a few 5086-prelim or SEAB 5076 items where no 6091 paper on file tests the
+outcome. Each question shows the source under its working.
+
+Every question on an outcome the **2026 Paper 2 did not test** carries an orange **"NOT in P2 2026"** badge; outcomes tested only in
+the either/or Q10 (5b, 5d, 5e, 7a, 7b) or Q11 (20b-20f, 20j) say so. The note is worked out from the question's learning outcome
+(`p2_2026_note` in `trainer/config.py`, sets `P2_2026_*` = the teacher's mapping of the paper), so it can never disagree with that
+mapping. Students can tick **"Only questions NOT in P2 2026"** to practise just those. Files: `trainer/content/olevel_specimen.py`,
+`olevel_school_a.py` (Ch 1-10), `olevel_school_b.py` (Ch 11-20), drawers `trainer/sketches5.py`; tests `tests/test_olevel.py` (every
+outcome covered, every specimen MCQ cited, notes equal the mapping, every item cites its source); report `OLEVEL_MCQ_COVERAGE.md`
+(`python tools/olevel_coverage.py`).
 
 ## Question bank (extended 25 Oct 2026)
 

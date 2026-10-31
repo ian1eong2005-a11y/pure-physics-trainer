@@ -106,3 +106,30 @@ def test_select_template_falls_back_to_nearest_level_and_any_chapter():
     assert select_template(tpls, "explain", 5, [1, 2], [], rng).id == "r2"     # nearest available below
     assert select_template(tpls, "explain", 1, [9], [], rng).id in {"r1", "r2"}  # no content in chapter 9 -> any chapter
     assert levels_available(tpls, "explain") == [1, 2]
+
+
+def test_select_template_deals_whole_pool_before_repeating():
+    """Like a shuffled deck: every question in the pool is served once before any repeats, and the
+    question just served never comes straight back."""
+    tpls = [T(f"w{i}", "written", 4, 2) for i in range(15)]
+    rng = random.Random(7)
+    history = []
+    for cycle in range(4):
+        dealt = []
+        for _ in range(15):
+            t = select_template(tpls, "written", 2, [4], history, rng)
+            assert not history or t.id != history[-1], "same question twice in a row"
+            dealt.append(t.id)
+            history.append(t.id)
+        if cycle == 0:
+            assert sorted(dealt) == sorted(t.id for t in tpls), "first pass must show every question once"
+
+
+def test_select_template_two_question_pool_alternates():
+    tpls = [T("p", "calc", 1, 1), T("q", "calc", 1, 1)]
+    rng = random.Random(8)
+    history = ["p", "q"]
+    for _ in range(10):
+        t = select_template(tpls, "calc", 1, [1], history, rng)
+        assert t.id != history[-1]
+        history.append(t.id)

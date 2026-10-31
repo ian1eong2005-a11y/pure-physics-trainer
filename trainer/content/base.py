@@ -202,6 +202,30 @@ def explain_bank(chapter, items):
         template(item["id"], chapter=chapter, level=item["level"], lo=item["lo"], category="explain")(make)
 
 
+def explain_mcqs(items, category: str = "explain"):
+    """Register fixed-text MCQs for any category (O level 2026 MCQ practice uses category="olevel"). Each item: id, chapter, level,
+    lo, stem, correct, wrongs {text: why wrong} (3), hints (3), optional figure (callable returning PNG bytes; the stem must then say
+    'Fig. 1'), optional why, optional source (shown under the working, e.g. 'SEAB 6091 specimen paper 2024 MCQ 9')."""
+    for item in items:
+        def make(rng, item=item):
+            opts, key, mis = text_options(rng, item["correct"], item["wrongs"])
+            fig = item.get("figure")
+            hints = [h if "___" not in h else "Rule out the options that contradict what you know, then choose the one that matches exactly." for h in item["hints"]]
+            return dict(stem=item["stem"], options=opts, key=key, misconceptions=mis, hints=hints,
+                        working=[f"Correct answer: **{item['correct']}**"] + ([item["why"]] if item.get("why") else [])
+                        + ([f"_Adapted from {item['source']}._"] if item.get("source") else []),
+                        formula=None, figure=fig() if fig else None)
+        template(item["id"], chapter=item["chapter"], level=item["level"], lo=item["lo"], category=category)(make)
+
+
+def calc_q(rng: random.Random, stem: str, answer: float, wrongs, unit: str, formula: str, working, hints, figure=None,
+           sf: Optional[int] = 3, dp: Optional[int] = None):
+    """Build the dict a calculation template returns: numeric options with misconception messages, plus the rest."""
+    opts, key, mis = numeric_options(rng, answer, wrongs, unit=unit, sf=sf, dp=dp)
+    return dict(stem=stem, figure=figure, options=opts, key=key, misconceptions=mis, formula=formula,
+                working=list(working), hints=list(hints))
+
+
 def md_table(headers, rows):
     out = ["| " + " | ".join(headers) + " |", "|" + "|".join(["---"] * len(headers)) + "|"]
     for r in rows:

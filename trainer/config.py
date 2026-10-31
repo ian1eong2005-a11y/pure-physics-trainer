@@ -39,6 +39,42 @@ CATEGORIES = {
     "calc": "Calculation",
     "explain": "Explanation",
     "written": "Written answer",
+    "olevel": "O level 2026 MCQ practice",
+}
+
+# ---- O level 2026 MCQ practice (added 31 Oct 2026 for the 6091 Paper 1 the week after).
+# The teacher's mapping of every part of the 2026 6091 Paper 2 to learning outcomes (OLEVEL_MCQ_BUILD_PROMPT.md).
+P2_2026_NOT_TESTED = {
+    "1a", "1d", "1e", "2a", "2d", "2e", "2f", "2g", "2h", "2i",
+    "3a", "3b", "3c", "3d", "3e", "3f", "3i", "3j", "3k", "3l", "3m",
+    "4a", "4b", "4c", "4d", "4e", "4f", "5a", "5c", "5f", "5g", "6a", "6d", "6e", "6g", "7c", "7d", "7e", "8b", "8d",
+    "9d", "9e", "9f", "9h", "9i", "10a", "10b", "10c", "10d", "10e", "10f", "10g", "10h", "10i", "10j", "11d",
+    "12a", "12g", "12h", "12i", "12j", "12k", "13a", "13b", "13c", "13d", "13e", "13f", "13g", "13h", "13i",
+    "14a", "14b", "14e", "14f", "14g", "14j", "14k", "15a", "15d", "15e", "15h", "15i", "15j",
+    "16a", "16b", "16c", "16g", "16h", "16i", "17a", "17b", "17c", "17d", "17e", "18a", "18e", "18f",
+    "19a", "19b", "19c", "20a", "20g", "20h", "20i",
+}
+P2_2026_Q10_ONLY = {"5b", "5d", "5e", "7a", "7b"}                       # tested only in the either/or Q10
+P2_2026_Q11_ONLY = {"20b", "20c", "20d", "20e", "20f", "20j"}           # tested only in the either/or Q11
+
+
+def p2_2026_note(lo: str):
+    """Note shown on an O-level practice question, worked out from its learning outcome; None if Paper 2 tested it."""
+    if lo in P2_2026_NOT_TESTED:
+        return "NOT in P2 2026"
+    if lo in P2_2026_Q10_ONLY:
+        return "NOT in P2 2026 Section A (only in either/or Q10)"
+    if lo in P2_2026_Q11_ONLY:
+        return "NOT in P2 2026 Section A (only in either/or Q11)"
+    return None
+
+
+OLEVEL_LEVEL_NAMES = {
+    1: "L1 - recall a definition or fact (SEAB style)",
+    2: "L2 - one step: a formula or a rule",
+    3: "L3 - read a diagram or graph, or two steps",
+    4: "L4 - link two ideas or interpret an experiment",
+    5: "L5 - unfamiliar context, or a trap in the data",
 }
 
 WRITTEN_LEVEL_NAMES = {
@@ -69,7 +105,7 @@ UP_STREAK = 5          # correct in a row at a level -> level + 1
 DOWN_STREAK = 3        # wrong in a row at a level -> level - 1
 MIN_LEVEL, MAX_LEVEL = 1, 5
 START_LEVEL = 1
-RECENT_AVOID = 10      # do not repeat any of the last N template ids
+HISTORY_LEN = 1000     # served template ids remembered per category; a question comes back only after its whole pool has been seen
 
 ONLINE_SECONDS = 120   # "online" on the dashboard if active within this many seconds
 DASHBOARD_REFRESH_S = 5
